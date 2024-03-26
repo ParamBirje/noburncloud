@@ -1,5 +1,4 @@
 import { log } from "@repo/logger";
-import { CounterButton, Link } from "@repo/ui";
 import { Button } from "@/components/ui/button";
 
 export const metadata = {
