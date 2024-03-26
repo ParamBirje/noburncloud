@@ -10,7 +10,7 @@ export default function Store(): JSX.Element {
 
   return (
     <main>
-      <h2 className="uppercase">powered by Gemini</h2>
+      <h2 className="uppercase text-accent">powered by Gemini</h2>
       <h1>The startup simulator.</h1>
 
       <p>
