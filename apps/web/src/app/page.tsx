@@ -9,22 +9,17 @@ export default function Store(): JSX.Element {
   log("Hey! This is the home page.");
 
   return (
-    <div className="container">
-      <h1 className="font-bold text-3xl">
-        Store <br />
-        <span>Kitchen Sink</span>
-      </h1>
-      <CounterButton />
-      <p className="description">
-        Built With{" "}
-        <Link href="https://turbo.build/repo" newTab>
-          Turborepo
-        </Link>
-        {" & "}
-        <Link href="https://nextjs.org/" newTab>
-          Next.js
-        </Link>
+    <main>
+      <h2 className="uppercase">powered by Gemini</h2>
+      <h1>The startup simulator.</h1>
+
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque maxime
+        voluptate recusandae doloribus quis laudantium consectetur velit
+        quisquam corporis culpa.
       </p>
-    </div>
+
+      <CounterButton />
+    </main>
   );
 }
