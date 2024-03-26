@@ -2,11 +2,11 @@ import { log } from "@repo/logger";
 import { CounterButton, Link } from "@repo/ui";
 
 export const metadata = {
-  title: "Store | Kitchen Sink",
+  title: "TheLaunchpad - Startup Simulator",
 };
 
 export default function Store(): JSX.Element {
-  log("Hey! This is the Store page.");
+  log("Hey! This is the home page.");
 
   return (
     <div className="container">
