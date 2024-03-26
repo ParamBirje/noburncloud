@@ -10,7 +10,7 @@ export default function Store(): JSX.Element {
 
   return (
     <div className="container">
-      <h1 className="title">
+      <h1 className="font-bold text-3xl">
         Store <br />
         <span>Kitchen Sink</span>
       </h1>
