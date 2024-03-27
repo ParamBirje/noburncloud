@@ -4,7 +4,7 @@ import React from "react";
 
 export default function Page() {
   return (
-    <main className="my-10 w-3/4 mx-auto">
+    <main className="my-10 w-3/4 mx-auto flex flex-col gap-16">
       <div className="flex justify-between items-center">
         <div className="flex flex-col gap-5">
           <h3 className="font-bold uppercase tracking-wide text-accent text-sm">
@@ -60,6 +60,19 @@ export default function Page() {
           </Button>
         </div>
       </div>
+
+      <section id="requirements" className="flex flex-col gap-5">
+        <h3 className="font-bold uppercase tracking-wide text-sm">
+          Requirements
+        </h3>
+
+        <p className=" text-muted-foreground tracking-wide">
+          A company wants to organize the contents of multiple websites in
+          managed file storage. The company must be able to scale the storage
+          based on demand without needing to provision storage. Multiple servers
+          should be able to access this storage concurrently.
+        </p>
+      </section>
     </main>
   );
 }
