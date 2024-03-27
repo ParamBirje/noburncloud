@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { CircleDollarSign, Heart, Info, Laugh } from "lucide-react";
 import React from "react";
 
@@ -72,6 +73,23 @@ export default function Page() {
           based on demand without needing to provision storage. Multiple servers
           should be able to access this storage concurrently.
         </p>
+      </section>
+
+      <section id="architecture" className="flex flex-col gap-5">
+        <h3 className="font-bold uppercase tracking-wide text-sm">
+          Architecture
+        </h3>
+
+        <Card>
+          <CardContent className="py-4">
+            <p className=" text-muted-foreground text-sm">
+              Add cloud services as components here!
+            </p>
+          </CardContent>
+          <CardFooter className="flex justify-end">
+            <Button>Add Component</Button>
+          </CardFooter>
+        </Card>
       </section>
     </main>
   );
