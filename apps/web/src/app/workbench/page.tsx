@@ -132,6 +132,20 @@ export default function Page() {
           </Card>
         </div>
       </section>
+
+      <section id="client" className="flex flex-col gap-5">
+        <h3 className="font-bold uppercase tracking-wide text-sm">
+          Client Comms.
+        </h3>
+
+        <Card>
+          <CardContent className="py-4">
+            <p className=" text-muted-foreground text-sm">
+              All mails caught up!
+            </p>
+          </CardContent>
+        </Card>
+      </section>
     </main>
   );
 }
