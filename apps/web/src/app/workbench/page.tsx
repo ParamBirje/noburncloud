@@ -7,12 +7,18 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { CircleDollarSign, Heart, Info, Laugh } from "lucide-react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { Bell, CircleDollarSign, Heart, Info, Laugh } from "lucide-react";
 import React from "react";
 
 export default function Page() {
   return (
-    <main className="my-10 w-3/4 mx-auto flex flex-col gap-16">
+    <main className="my-10 w-3/4 mx-auto flex flex-col gap-16 relative">
       <div className="flex justify-between items-center">
         <div className="flex flex-col gap-5">
           <h3 className="font-bold uppercase tracking-wide text-accent text-sm">
@@ -146,6 +152,22 @@ export default function Page() {
           </CardContent>
         </Card>
       </section>
+
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              variant="secondary"
+              className="fixed top-[12rem] right-0 py-7"
+            >
+              <Bell size={25} />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>Notifications</p>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
     </main>
   );
 }
