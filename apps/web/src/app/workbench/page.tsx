@@ -1,3 +1,4 @@
+import { io } from "socket.io-client";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -14,7 +15,8 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Bell, CircleDollarSign, Heart, Info, Laugh } from "lucide-react";
-import React from "react";
+
+const socket = io("http://localhost:5001");
 
 export default function Page() {
   return (
