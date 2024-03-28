@@ -2,7 +2,7 @@ import http from "http";
 import { Server } from "socket.io";
 import { log } from "@repo/logger";
 import { createServer } from "./server";
-import socketHandler from "./socket";
+import socketHandler from "./socket-handler";
 
 const port = process.env.PORT || 5001;
 const app = createServer();
