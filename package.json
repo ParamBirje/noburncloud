@@ -23,5 +23,8 @@
   "workspaces": [
     "apps/*",
     "packages/*"
-  ]
+  ],
+  "dependencies": {
+    "@google/generative-ai": "^0.3.1"
+  }
 }
