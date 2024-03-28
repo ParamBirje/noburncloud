@@ -1,8 +1,8 @@
-const { GoogleGenerativeAI } = require("@google/generative-ai");
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const genAI = new GoogleGenerativeAI(process.env.API_KEY);
+const genAI = new GoogleGenerativeAI(String(process.env.API_KEY));
 
-async function getRequirements() {
+export async function getRequirements(): Promise<string> {
   const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
   const prompt = "Write a story about a magic backpack.";
