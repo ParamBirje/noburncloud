@@ -2,22 +2,21 @@ import http from "http";
 import { Server } from "socket.io";
 import { log } from "@repo/logger";
 import { createServer } from "./server";
+import socketHandler from "./socket";
 
 const port = process.env.PORT || 5001;
 const app = createServer();
 
 // Socket.io setup
 const server = http.createServer(app);
-const io = new Server(server);
+const io: Server = new Server(server);
+
+io.on("connection", socketHandler);
 
 app.get("/", (_req, res) => {
   return res.json({
     message: "Hello, this is the backend.",
   });
-});
-
-io.on("connection", (socket) => {
-  log(`User ${socket.id} has connected!`);
 });
 
 server.listen(port, () => {
