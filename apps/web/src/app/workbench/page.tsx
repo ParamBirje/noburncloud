@@ -14,7 +14,9 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Bell, CircleDollarSign, Heart, Info, Laugh } from "lucide-react";
+import { Bell, Info } from "lucide-react";
+import Stats from "./_components/Stats";
+import Requirements from "./_components/Requirements";
 
 const socket = io("http://localhost:5001");
 
@@ -22,42 +24,7 @@ export default function Page() {
   return (
     <main className="my-10 w-3/4 mx-auto flex flex-col gap-16 relative">
       <div className="flex justify-between items-center">
-        <div className="flex flex-col gap-5">
-          <h3 className="font-bold uppercase tracking-wide text-accent text-sm">
-            Stats
-          </h3>
-
-          <div className="flex items-center gap-5">
-            <CircleDollarSign size={30} />
-            <p className="text-2xl font-bold">
-              7,034{" "}
-              <span className="font-normal text-sm text-muted-foreground">
-                in bills
-              </span>
-            </p>
-          </div>
-
-          <div className="flex gap-8 items-center">
-            <div className="flex items-center gap-5">
-              <Laugh size={30} />
-              <p className="text-2xl font-bold">
-                302{" "}
-                <span className="font-normal text-sm text-muted-foreground">
-                  users
-                </span>
-              </p>
-            </div>
-            <div className="flex items-center gap-5">
-              <Heart size={30} />
-              <p className="text-2xl font-bold">
-                60{" "}
-                <span className="font-normal text-sm text-muted-foreground">
-                  % satisfaction
-                </span>
-              </p>
-            </div>
-          </div>
-        </div>
+        <Stats />
 
         <div className="flex flex-col items-end gap-5">
           <div className="text-right">
@@ -77,18 +44,7 @@ export default function Page() {
         </div>
       </div>
 
-      <section id="requirements" className="flex flex-col gap-5">
-        <h3 className="font-bold uppercase tracking-wide text-sm">
-          Requirements
-        </h3>
-
-        <p className=" text-muted-foreground tracking-wide">
-          A company wants to organize the contents of multiple websites in
-          managed file storage. The company must be able to scale the storage
-          based on demand without needing to provision storage. Multiple servers
-          should be able to access this storage concurrently.
-        </p>
-      </section>
+      <Requirements />
 
       <section id="architecture" className="flex flex-col gap-5">
         <h3 className="font-bold uppercase tracking-wide text-sm">
