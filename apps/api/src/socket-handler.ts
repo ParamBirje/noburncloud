@@ -1,7 +1,7 @@
 import { log } from "@repo/logger";
 import { type Socket } from "socket.io";
 
-export default function socketHandler(socket: Socket) {
+export default function socketHandler(socket: Socket): void {
   log(`User ${socket.id} has connected!`);
 
   // Generates requirements if user asks for it
