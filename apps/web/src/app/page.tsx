@@ -11,7 +11,7 @@ export default function Store(): JSX.Element {
 
   return (
     <main className="min-h-screen w-3/4 mx-auto flex justify-center items-center">
-      <div className="text-center flex flex-col gap-8">
+      <div className="text-center flex flex-col items-center gap-8">
         <div>
           <h2 className="uppercase text-accent font-bold tracking-wide">
             powered by Gemini
@@ -22,13 +22,13 @@ export default function Store(): JSX.Element {
           </h1>
         </div>
 
-        <p className="text-muted-foreground tracking-wide w-3/4 mx-auto">
+        <p className="text-muted-foreground tracking-wide w-3/4">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque maxime
           voluptate recusandae doloribus quis laudantium consectetur velit
           quisquam corporis culpa.
         </p>
 
-        <Link href="/onboard">
+        <Link href="/onboard" className="w-fit">
           <Button>Architect</Button>
         </Link>
       </div>

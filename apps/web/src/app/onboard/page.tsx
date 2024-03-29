@@ -21,7 +21,7 @@ export default function Page() {
           problems it addresses, etc.
         </p>
 
-        <Link href="/workbench">
+        <Link href="/workbench" className="w-fit">
           <Button variant="secondary">
             I don&apos;t have one, generate a requirement for me
           </Button>
@@ -43,7 +43,7 @@ export default function Page() {
           </p>
         </div>
 
-        <Link href="/workbench">
+        <Link href="/workbench" className="w-fit">
           <Button>Continue</Button>
         </Link>
       </div>
