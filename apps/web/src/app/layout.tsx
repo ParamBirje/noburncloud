@@ -1,3 +1,4 @@
+import JotaiProvider from "@/components/jotai-provider";
 import "./styles.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Montserrat } from "next/font/google";
@@ -17,14 +18,16 @@ export default function RootLayout({
       <html lang="en" suppressHydrationWarning>
         <head />
         <body className={monty.className}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-          </ThemeProvider>
+          <JotaiProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="dark"
+              enableSystem
+              disableTransitionOnChange
+            >
+              {children}
+            </ThemeProvider>
+          </JotaiProvider>
         </body>
       </html>
     </>

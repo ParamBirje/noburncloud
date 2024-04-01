@@ -1,4 +1,4 @@
-import { io } from "socket.io-client";
+import { io, type Socket } from "socket.io-client";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -17,8 +17,12 @@ import {
 import { Bell, Info } from "lucide-react";
 import Stats from "./_components/Stats";
 import Requirements from "./_components/Requirements";
+import { atom } from "jotai";
 
-const socket = io("http://localhost:5001");
+const socket: Socket = io("http://localhost:5001");
+
+// states
+export const requirementsAtom = atom("");
 
 export default function Page() {
   return (
