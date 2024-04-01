@@ -4,12 +4,17 @@ import { log } from "@repo/logger";
 import { createServer } from "./server";
 import socketHandler from "./socket-handler";
 
+import requirementsRouter from "./routes/requirements";
+
 const port = process.env.PORT || 5001;
 const app = createServer();
 
 // Socket.io setup
 const server = http.createServer(app);
 const io: Server = new Server(server);
+
+// Routers
+app.use("/requirements", requirementsRouter);
 
 io.on("connection", socketHandler);
 
