@@ -8,18 +8,13 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { Bell, Info } from "lucide-react";
+import { Info } from "lucide-react";
 import Stats from "./_components/Stats";
 import Requirements from "./_components/Requirements";
 import { atom } from "jotai";
 import Architecture from "./_components/architecture";
 import Iterations from "./_components/iterations";
+import Notifications from "./_components/notifications";
 
 const socket: Socket = io("http://localhost:5001");
 
@@ -90,21 +85,8 @@ export default function Page() {
 
       <Iterations />
 
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button
-              variant="secondary"
-              className="fixed top-[12rem] right-0 py-7"
-            >
-              <Bell size={25} />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>Notifications</p>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
+      {/* Docked to the right */}
+      <Notifications />
     </main>
   );
 }
