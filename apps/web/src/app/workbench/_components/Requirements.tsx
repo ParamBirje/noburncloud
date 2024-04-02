@@ -18,7 +18,7 @@ export default function Requirements() {
         setRequirements(data.text);
       })
       .catch((e) => log(e));
-  });
+  }, []);
 
   return (
     <section id="requirements" className="flex flex-col gap-5">

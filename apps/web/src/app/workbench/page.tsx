@@ -18,6 +18,7 @@ import { Bell, Info } from "lucide-react";
 import Stats from "./_components/Stats";
 import Requirements from "./_components/Requirements";
 import { atom } from "jotai";
+import Architecture from "./_components/architecture";
 
 const socket: Socket = io("http://localhost:5001");
 
@@ -48,24 +49,9 @@ export default function Page() {
         </div>
       </div>
 
-      <Requirements />
+      {/* <Requirements /> */}
 
-      <section id="architecture" className="flex flex-col gap-5">
-        <h3 className="font-bold uppercase tracking-wide text-sm">
-          Architecture
-        </h3>
-
-        <Card>
-          <CardContent className="py-4">
-            <p className=" text-muted-foreground text-sm">
-              Add cloud services as components here!
-            </p>
-          </CardContent>
-          <CardFooter className="flex justify-end">
-            <Button>Add Component</Button>
-          </CardFooter>
-        </Card>
-      </section>
+      <Architecture />
 
       <section id="deployment" className="flex flex-col gap-5">
         <h3 className="font-bold uppercase tracking-wide text-sm">
