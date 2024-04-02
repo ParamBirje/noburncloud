@@ -19,6 +19,7 @@ import Stats from "./_components/Stats";
 import Requirements from "./_components/Requirements";
 import { atom } from "jotai";
 import Architecture from "./_components/architecture";
+import Iterations from "./_components/iterations";
 
 const socket: Socket = io("http://localhost:5001");
 
@@ -87,19 +88,7 @@ export default function Page() {
         </div>
       </section>
 
-      <section id="client" className="flex flex-col gap-5">
-        <h3 className="font-bold uppercase tracking-wide text-sm">
-          Client Comms.
-        </h3>
-
-        <Card>
-          <CardContent className="py-4">
-            <p className=" text-muted-foreground text-sm">
-              All mails caught up!
-            </p>
-          </CardContent>
-        </Card>
-      </section>
+      <Iterations />
 
       <TooltipProvider>
         <Tooltip>
