@@ -49,7 +49,7 @@ export default function Page() {
         </div>
       </div>
 
-      {/* <Requirements /> */}
+      <Requirements />
 
       <Architecture />
 
