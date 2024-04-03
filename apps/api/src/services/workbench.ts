@@ -17,3 +17,10 @@ export async function getRequirements(): Promise<string> {
 
   return text;
 }
+
+export async function getArchitectureComponents(desc: string): Promise<string> {
+  const prompt = `${desc}`;
+  const text = await oneTimeResponse(prompt);
+
+  return text;
+}
