@@ -12,7 +12,7 @@ import { Info } from "lucide-react";
 import Stats from "./_components/Stats";
 import Requirements from "./_components/Requirements";
 import { atom } from "jotai";
-import Architecture from "./_components/architecture";
+import Architecture from "./_components/architecture/architecture";
 import Iterations from "./_components/iterations";
 import Notifications from "./_components/notifications";
 
@@ -20,6 +20,10 @@ const socket: Socket = io("http://localhost:5001");
 
 // states
 export const requirementsAtom = atom("");
+export const architectureAtom = atom({
+  prompt: "",
+  components: [],
+});
 
 export default function Page() {
   return (
