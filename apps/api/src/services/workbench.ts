@@ -12,9 +12,9 @@ async function oneTimeResponse(prompt: string): Promise<string> {
 }
 
 export async function getRequirements(): Promise<string> {
-  const prompt = "Write a story about a magic backpack.";
-  const text = await oneTimeResponse(prompt);
+  const prompt = `generate a short app description that includes what the app is about, the technical features it includes these requirements will be used by a cloud architect to plan an architecture. Don't mention any cloud services.`;
 
+  const text = await oneTimeResponse(prompt);
   return text;
 }
 
@@ -32,6 +32,5 @@ export async function getArchitectureComponents(desc: string): Promise<string> {
   directly output the json, no additional text`;
 
   const text = await oneTimeResponse(prompt);
-
   return text;
 }
