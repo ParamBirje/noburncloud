@@ -5,6 +5,7 @@ import { createServer } from "./server";
 import socketHandler from "./socket-handler";
 
 import requirementsRouter from "./routes/requirements";
+import architectureRouter from "./routes/architecture";
 
 const port = process.env.PORT || 5001;
 const app = createServer();
@@ -15,6 +16,7 @@ const io: Server = new Server(server);
 
 // Routers
 app.use("/requirements", requirementsRouter);
+app.use("/architecture", architectureRouter);
 
 io.on("connection", socketHandler);
 
