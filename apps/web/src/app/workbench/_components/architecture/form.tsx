@@ -13,9 +13,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { useAtom } from "jotai";
 import { architectureAtom } from "../../page";
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { log } from "@repo/logger";
 
 export default function DialogForm() {
   const [architecture, setArchitecture] = useAtom(architectureAtom);
+  const [prompt, setPrompt] = useState<string>();
+
   return (
     <Dialog>
       <DialogTrigger className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2">
@@ -34,8 +38,11 @@ export default function DialogForm() {
           <div className="flex flex-col gap-5 py-3">
             <div className="grid w-full gap-3">
               <Textarea
-                id="message"
                 defaultValue={architecture.prompt}
+                id="message"
+                onChange={(e) => {
+                  setPrompt(e.target.value);
+                }}
                 placeholder="Enter your architecture details here."
               />
               <p className="text-sm text-muted-foreground">
@@ -47,7 +54,9 @@ export default function DialogForm() {
         <DialogFooter>
           <Button
             onClick={() => {
-              setArchitecture({ ...architecture, prompt: "" });
+              if (prompt) {
+                setArchitecture({ ...architecture, prompt });
+              }
             }}
           >
             Submit
