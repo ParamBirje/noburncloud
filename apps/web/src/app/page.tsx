@@ -7,17 +7,15 @@ export const metadata = {
 };
 
 export default function Store(): JSX.Element {
-  log("Hey! This is the home page.");
-
   return (
     <main className="min-h-screen w-3/4 mx-auto flex justify-center items-center">
       <div className="text-center flex flex-col items-center gap-8">
         <div>
-          <h2 className="uppercase text-accent font-bold tracking-wide">
+          <h2 className="uppercase text-accent font-bold tracking-wide mb-1">
             powered by Gemini
           </h2>
           <h1 className="scroll-m-20 text-4xl font-light tracking-tight lg:text-5xl">
-            Don't mindlessly burn <br />
+            Don&apos;t mindlessly burn <br />
             your money in the cloud.
           </h1>
         </div>
