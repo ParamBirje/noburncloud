@@ -17,15 +17,15 @@ export default function Store(): JSX.Element {
             powered by Gemini
           </h2>
           <h1 className="scroll-m-20 text-4xl font-light tracking-tight lg:text-5xl">
-            Implement cloud architectures <br />
-            in the real world
+            Don't mindlessly burn <br />
+            your money in the cloud.
           </h1>
         </div>
 
         <p className="text-muted-foreground tracking-wide w-3/4">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque maxime
-          voluptate recusandae doloribus quis laudantium consectetur velit
-          quisquam corporis culpa.
+          Implement your cloud architecture in a real world simulation. Itaque
+          maxime voluptate recusandae doloribus quis laudantium consectetur
+          velit quisquam corporis culpa.
         </p>
 
         <Link href="/onboard" className="w-fit">
