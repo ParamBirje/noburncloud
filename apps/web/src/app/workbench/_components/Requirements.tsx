@@ -4,6 +4,7 @@ import { log } from "@repo/logger";
 import { useAtom } from "jotai";
 import { requirementsAtom } from "../page";
 import { useEffect } from "react";
+import Markdown from "react-markdown";
 
 export default function Requirements() {
   const [requirements, setRequirements] = useAtom(requirementsAtom);
@@ -26,7 +27,9 @@ export default function Requirements() {
         Requirements
       </h3>
 
-      <p className=" text-muted-foreground tracking-wide">{requirements}</p>
+      <Markdown className="text-sm text-muted-foreground tracking-wide">
+        {requirements}
+      </Markdown>
     </section>
   );
 }
