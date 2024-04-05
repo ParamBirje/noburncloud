@@ -36,7 +36,11 @@ export default function DialogForm({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>Add Components</Button>
+        <Button>
+          {architecture.components.length > 0
+            ? "Edit Config"
+            : "Add Components"}
+        </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
