@@ -2,8 +2,17 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const genAI = new GoogleGenerativeAI(String(process.env.GEMINI_API));
 
+const generationConfig = {
+  temperature: 0.9,
+  topP: 1,
+  topK: 1,
+};
+
 async function oneTimeResponse(prompt: string): Promise<string> {
-  const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+  const model = genAI.getGenerativeModel({
+    model: "gemini-pro",
+    generationConfig,
+  });
 
   const result = await model.generateContent(prompt);
   const response = result.response;
@@ -19,13 +28,13 @@ export async function getRequirements(): Promise<string> {
 }
 
 export async function getArchitectureComponents(desc: string): Promise<string> {
-  const prompt = `architecture: ${desc} \n\n use this architecture description and generate a json file and list all the services mentioned in it in this format\n
+  const prompt = `Architecture: ${desc}. \n\n Strictly use services listed in the architecture description. Use this architecture description and generate a json file and strictly list the exact services in this format\n
   [
   {
   name: "Name of the cloud service",
   cloud: "Cloud platform",
   description: "State what this service will be used for according to the architecture description provided"
-  }\n
+  }]\n
   
   \n\nPer task, choose only one suitable service. No two services for the same task.
   
