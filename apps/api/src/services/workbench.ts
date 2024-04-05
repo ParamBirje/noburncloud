@@ -19,17 +19,18 @@ export async function getRequirements(): Promise<string> {
 }
 
 export async function getArchitectureComponents(desc: string): Promise<string> {
-  const prompt = `${desc} \n use this architecture description and generate a json file and list all the services mentioned in it in this format
+  const prompt = `architecture: ${desc} \n\n use this architecture description and generate a json file and list all the services mentioned in it in this format\n
   [
   {
-  name: "Compute Engine",
-  cloud: "Google Cloud Platform",
+  name: "Name of the cloud service",
+  cloud: "Cloud platform",
   description: "State what this service will be used for according to the architecture description provided"
-  }
+  }\n
   
-  Per task, choose only one suitable service. No two services for the same task.
+  \n\nPer task, choose only one suitable service. No two services for the same task.
   
-  directly output the json, no additional text`;
+  \n\ndirectly output the validated json in string format, no additional text
+  \nno chinese characters, only english`;
 
   const text = await oneTimeResponse(prompt);
   return text;
