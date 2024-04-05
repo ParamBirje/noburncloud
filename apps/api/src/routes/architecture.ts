@@ -5,7 +5,12 @@ import { log } from "@repo/logger";
 const router = Router();
 
 router.put("/", async (req, res) => {
-  const archDesc = req.body.desc;
+  const archDesc = await req.body.desc;
+  if (!archDesc) {
+    return res.json({
+      error: "No description provided.",
+    });
+  }
 
   try {
     let components = await getArchitectureComponents(archDesc);
