@@ -2,6 +2,7 @@
 
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -13,18 +14,29 @@ import { Textarea } from "@/components/ui/textarea";
 import { useAtom } from "jotai";
 import { architectureAtom } from "../../page";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { log } from "@repo/logger";
 
-export default function DialogForm() {
+export default function DialogForm({
+  getComponents,
+}: {
+  getComponents: () => Promise<void>;
+}) {
   const [architecture, setArchitecture] = useAtom(architectureAtom);
   const [prompt, setPrompt] = useState<string>();
 
+  useEffect(() => {
+    (async () => {
+      if (architecture.prompt !== "") {
+        await getComponents();
+      }
+    })();
+  }, [architecture.prompt]);
+
   return (
     <Dialog>
-      <DialogTrigger className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2">
-        {/* Button component doesn't work inside */}
-        Add Components
+      <DialogTrigger asChild>
+        <Button>Add Components</Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
@@ -52,15 +64,17 @@ export default function DialogForm() {
           </div>
         </DialogHeader>
         <DialogFooter>
-          <Button
-            onClick={() => {
-              if (prompt) {
-                setArchitecture({ ...architecture, prompt });
-              }
-            }}
-          >
-            Submit
-          </Button>
+          <DialogClose asChild>
+            <Button
+              onClick={() => {
+                if (prompt) {
+                  setArchitecture({ ...architecture, prompt });
+                }
+              }}
+            >
+              Submit
+            </Button>
+          </DialogClose>
         </DialogFooter>
       </DialogContent>
     </Dialog>
