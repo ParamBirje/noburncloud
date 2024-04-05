@@ -8,12 +8,14 @@ router.put("/", async (req, res) => {
   const archDesc = req.body.desc;
 
   try {
-    const components = await getArchitectureComponents(archDesc);
+    let components = await getArchitectureComponents(archDesc);
+    components = components.replace("```json", "").replace("```", "");
+
     return res.json({
       components: JSON.parse(components),
     });
   } catch (e) {
-    log(`Error: Processing architecture components\n\t`);
+    log(`Error: Processing architecture components\n\t ${e}`);
     return res.json({
       error: "Cannot process json.",
     });
