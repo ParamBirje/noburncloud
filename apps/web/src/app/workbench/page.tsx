@@ -9,8 +9,8 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Info } from "lucide-react";
-import Stats from "./_components/Stats";
-import Requirements from "./_components/Requirements";
+import Stats from "./_components/stats";
+import Requirements from "./_components/requirements";
 import { atom } from "jotai";
 import Architecture from "./_components/architecture/architecture";
 import Iterations from "./_components/iterations";
