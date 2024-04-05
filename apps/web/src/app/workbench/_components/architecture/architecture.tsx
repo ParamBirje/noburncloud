@@ -4,10 +4,9 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import DialogForm from "./form";
 import { useAtom } from "jotai";
 import { architectureAtom } from "../../page";
-import { log } from "@repo/logger";
-import { useState } from "react";
+import { ReactElement, useState } from "react";
 
-export default function Architecture() {
+export default function Architecture(): ReactElement {
   const [architecture, setArchitecture] = useAtom(architectureAtom);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -16,20 +15,23 @@ export default function Architecture() {
     if (architecture.prompt !== "") {
       const response = await fetch("http://localhost:5001/architecture", {
         method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({
           desc: architecture.prompt,
         }),
+        cache: "no-cache",
       });
 
       const jsonData = await response.json();
       setArchitecture({ ...architecture, components: jsonData.components });
-      log(`components ${architecture.components}`);
     }
     setIsLoading(false);
   }
 
   return (
-    <section id="architecture" className="flex flex-col gap-5">
+    <section className="flex flex-col gap-5" id="architecture">
       <h3 className="font-bold uppercase tracking-wide text-sm">
         Architecture
       </h3>
@@ -37,7 +39,7 @@ export default function Architecture() {
       <Card>
         <CardContent className="py-4">
           {isLoading ? (
-            <p>Loading</p>
+            <p className="text-muted-foreground text-sm">Loading</p>
           ) : architecture.components.length !== 0 ? (
             <p>
               {architecture.components.map((component: any) => {
@@ -46,18 +48,9 @@ export default function Architecture() {
             </p>
           ) : (
             <p className="text-muted-foreground text-sm">
-              Describe your architecture here!
-            </p>
-          )}
-          {/* {architecture.components && architecture.components.length > 0 ? (
-            architecture.components.map((component: any, idx) => {
-              return <div key={idx}>{component.name}</div>;
-            })
-          ) : (
-            <p className=" text-muted-foreground text-sm">
               Add cloud services as components here!
             </p>
-          )} */}
+          )}
         </CardContent>
         <CardFooter className="flex justify-end">
           <DialogForm getComponents={getComponents} />

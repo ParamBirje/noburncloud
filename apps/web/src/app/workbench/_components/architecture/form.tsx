@@ -26,7 +26,7 @@ export default function DialogForm({
   const [prompt, setPrompt] = useState<string>();
 
   useEffect(() => {
-    (async () => {
+    void (async () => {
       if (architecture.prompt !== "") {
         await getComponents();
       }
