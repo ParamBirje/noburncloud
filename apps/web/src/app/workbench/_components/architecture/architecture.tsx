@@ -5,6 +5,7 @@ import DialogForm from "./form";
 import { useAtom } from "jotai";
 import { architectureAtom } from "../../page";
 import { ReactElement, useState } from "react";
+import { ArchitectureComponent } from "./component";
 
 export default function Architecture(): ReactElement {
   const [architecture, setArchitecture] = useAtom(architectureAtom);
@@ -21,7 +22,6 @@ export default function Architecture(): ReactElement {
         body: JSON.stringify({
           desc: architecture.prompt,
         }),
-        cache: "no-cache",
       });
 
       const jsonData = await response.json();
@@ -41,11 +41,13 @@ export default function Architecture(): ReactElement {
           {isLoading ? (
             <p className="text-muted-foreground text-sm">Loading</p>
           ) : architecture.components.length !== 0 ? (
-            <p>
-              {architecture.components.map((component: any) => {
-                return <div>{component.name}</div>;
+            <div className="flex flex-wrap gap-4">
+              {architecture.components.map((component: any, idx) => {
+                return (
+                  <ArchitectureComponent key={idx} component={component} />
+                );
               })}
-            </p>
+            </div>
           ) : (
             <p className="text-muted-foreground text-sm">
               Add cloud services as components here!
