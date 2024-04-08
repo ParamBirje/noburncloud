@@ -1,4 +1,3 @@
-import { io, type Socket } from "socket.io-client";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -15,8 +14,6 @@ import { atom } from "jotai";
 import Architecture from "./_components/architecture/architecture";
 import Iterations from "./_components/iterations";
 import Notifications from "./_components/notifications";
-
-const socket: Socket = io("http://localhost:5001");
 
 // states
 export const requirementsAtom = atom("");

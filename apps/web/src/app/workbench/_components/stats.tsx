@@ -1,7 +1,18 @@
-import React from "react";
+"use client";
+import { io, type Socket } from "socket.io-client";
 import { CircleDollarSign, Heart, Laugh } from "lucide-react";
+import { useEffect } from "react";
+import { log } from "@repo/logger";
 
 export default function Stats() {
+  useEffect(() => {
+    const socket: Socket = io("http://localhost:5001");
+
+    return () => {
+      socket.close();
+    };
+  }, []);
+
   return (
     <div className="flex flex-col gap-5">
       <h3 className="font-bold uppercase tracking-wide text-accent text-sm">
