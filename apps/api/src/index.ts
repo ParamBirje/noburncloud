@@ -12,7 +12,11 @@ const app = createServer();
 
 // Socket.io setup
 const server = http.createServer(app);
-const io: Server = new Server(server);
+const io: Server = new Server(server, {
+  cors: {
+    origin: "*",
+  },
+});
 
 // Routers
 app.use("/requirements", requirementsRouter);
