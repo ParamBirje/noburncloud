@@ -1,4 +1,4 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { Content, GoogleGenerativeAI } from "@google/generative-ai";
 
 const genAI = new GoogleGenerativeAI(String(process.env.GEMINI_API));
 
@@ -8,15 +8,32 @@ const generationConfig = {
   topK: 1,
 };
 
-async function oneTimeResponse(prompt: string): Promise<string> {
-  const model = genAI.getGenerativeModel({
-    model: "gemini-pro",
-    generationConfig,
-  });
+const model = genAI.getGenerativeModel({
+  model: "gemini-pro",
+  generationConfig,
+});
 
+async function oneTimeResponse(prompt: string): Promise<string> {
   const result = await model.generateContent(prompt);
   const response = result.response;
   const text = response.text();
+  return text;
+}
+
+async function chatResponse(latestMsg: string, history: Content[]) {
+  const chat = model.startChat({
+    history: history,
+    generationConfig: {
+      maxOutputTokens: 100,
+    },
+  });
+
+  const msg = latestMsg;
+
+  const result = await chat.sendMessage(msg);
+  const response = await result.response;
+  const text = response.text();
+
   return text;
 }
 
