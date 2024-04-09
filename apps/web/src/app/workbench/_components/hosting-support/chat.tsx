@@ -12,14 +12,16 @@ import { Button } from "@/components/ui/button";
 import { useAtom } from "jotai";
 import { chatHistoryAtom } from "../../page";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
+import { log } from "@repo/logger";
 
 export default function Chat() {
   const [chatHistory, setChatHistory] = useAtom(chatHistoryAtom);
   const [latestMsg, setLatestMsg] = useState("");
   const [loading, setLoading] = useState(false);
 
-  async function handleChatMessageSubmit(): Promise<void> {
+  async function handleChatMessageSubmit(e: FormEvent): Promise<void> {
+    e.preventDefault();
     setLoading(true);
     if (latestMsg) {
       const res = await fetch("http://localhost:5001/support", {
@@ -70,24 +72,23 @@ export default function Chat() {
         </ScrollArea>
       </CardContent>
       <CardFooter>
-        <div className="flex w-full justify-between items-center space-x-2">
+        <form
+          onSubmit={handleChatMessageSubmit}
+          className="flex w-full justify-between items-center space-x-2"
+        >
           <Input
             disabled={loading}
             value={latestMsg}
-            type="email"
+            type="text"
             onChange={(e) => {
               setLatestMsg(e.target.value);
             }}
             placeholder="Type your message here"
           />
-          <Button
-            disabled={loading}
-            onClick={handleChatMessageSubmit}
-            type="submit"
-          >
+          <Button disabled={loading} type="submit">
             Send
           </Button>
-        </div>
+        </form>
       </CardFooter>
     </Card>
   );
