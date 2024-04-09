@@ -6,7 +6,7 @@ import { atom } from "jotai";
 import Architecture from "./_components/architecture/architecture";
 import Iterations from "./_components/iterations";
 import Notifications from "./_components/notifications";
-import ChatSupport from "./_components/support";
+import ChatSupport from "./_components/hosting-support/support";
 
 // states
 export const requirementsAtom = atom("");
@@ -14,6 +14,7 @@ export const architectureAtom = atom({
   prompt: "",
   components: [],
 });
+export const chatHistoryAtom = atom<ChatHistoryContent[]>([]);
 
 export default function Page() {
   return (
