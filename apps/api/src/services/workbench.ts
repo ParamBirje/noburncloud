@@ -24,9 +24,9 @@ async function oneTimeResponse(prompt: string): Promise<string> {
 async function chatResponse(latestMsg: string, history: Content[]) {
   const chat = model.startChat({
     history: history,
-    generationConfig: {
-      maxOutputTokens: 100,
-    },
+    // generationConfig: {
+    //   maxOutputTokens: 100,
+    // },
   });
 
   const msg = latestMsg;
@@ -47,7 +47,7 @@ export async function getChatSupportResponse(
       role: "user",
       parts: [
         {
-          text: `Act as a cloud provider support agent, you have all the general information regarding all the cloud services. You are helping a user with a cloud service related query.`,
+          text: `Act as a cloud provider support agent, you have all the general information regarding all the cloud services. You are helping a user with a cloud service related query. Limit all your responses under 50 words. DONT give steps. Strictly give only brief overview. Give very accurate concise responses.`,
         },
       ],
     },
@@ -62,17 +62,8 @@ export async function getChatSupportResponse(
   ];
 
   history.unshift(...prompt);
-  history.forEach((element) => {
-    element.parts.forEach((part) => {
-      log(`role: ${element.role}`, part.text);
-      if (part.text === "") {
-        log("empty part");
-      }
-    });
-  });
 
   const text = await chatResponse(latestMsg, history);
-  log("chat response", text);
   return text;
 }
 
