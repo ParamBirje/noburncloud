@@ -1,4 +1,5 @@
 import { Content, GoogleGenerativeAI } from "@google/generative-ai";
+import { log } from "@repo/logger";
 
 const genAI = new GoogleGenerativeAI(String(process.env.GEMINI_API));
 
@@ -41,18 +42,37 @@ export async function getChatSupportResponse(
   latestMsg: string,
   history: Content[]
 ): Promise<string> {
-  const prompt: Content = {
-    role: "user",
-    parts: [
-      {
-        text: `Act as a cloud provider support agent, you have all the general information regarding all the cloud services. You are helping a user with a cloud service related query.`,
-      },
-    ],
-  };
+  const prompt: Content[] = [
+    {
+      role: "user",
+      parts: [
+        {
+          text: `Act as a cloud provider support agent, you have all the general information regarding all the cloud services. You are helping a user with a cloud service related query.`,
+        },
+      ],
+    },
+    {
+      role: "model",
+      parts: [
+        {
+          text: `Okay!`,
+        },
+      ],
+    },
+  ];
 
-  history.unshift(prompt);
+  history.unshift(...prompt);
+  history.forEach((element) => {
+    element.parts.forEach((part) => {
+      log(`role: ${element.role}`, part.text);
+      if (part.text === "") {
+        log("empty part");
+      }
+    });
+  });
 
   const text = await chatResponse(latestMsg, history);
+  log("chat response", text);
   return text;
 }
 
