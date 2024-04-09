@@ -37,6 +37,25 @@ async function chatResponse(latestMsg: string, history: Content[]) {
   return text;
 }
 
+export async function getChatSupportResponse(
+  latestMsg: string,
+  history: Content[]
+): Promise<string> {
+  const prompt: Content = {
+    role: "user",
+    parts: [
+      {
+        text: `Act as a cloud provider support agent, you have all the general information regarding all the cloud services. You are helping a user with a cloud service related query.`,
+      },
+    ],
+  };
+
+  history.unshift(prompt);
+
+  const text = await chatResponse(latestMsg, history);
+  return text;
+}
+
 export async function getRequirements(): Promise<string> {
   const prompt = `generate a short app description that includes what the app is about, the technical features it includes these requirements will be used by a cloud architect to plan an architecture. Don't mention any cloud services.`;
 
