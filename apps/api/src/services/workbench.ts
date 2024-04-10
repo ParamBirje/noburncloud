@@ -1,29 +1,5 @@
 import { Content } from "@google/generative-ai";
-import { model } from "./ai-config";
-
-async function oneTimeResponse(prompt: string): Promise<string> {
-  const result = await model.generateContent(prompt);
-  const response = result.response;
-  const text = response.text();
-  return text;
-}
-
-async function chatResponse(latestMsg: string, history: Content[]) {
-  const chat = model.startChat({
-    history: history,
-    // generationConfig: {
-    //   maxOutputTokens: 100,
-    // },
-  });
-
-  const msg = latestMsg;
-
-  const result = await chat.sendMessage(msg);
-  const response = await result.response;
-  const text = response.text();
-
-  return text;
-}
+import { chatResponse, oneTimeResponse } from "./ai-config";
 
 export async function getChatSupportResponse(
   latestMsg: string,
