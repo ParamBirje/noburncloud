@@ -62,7 +62,9 @@ export default function Chat() {
         <ScrollArea className="h-[300px] rounded-md border p-4">
           {chatHistory.map((chat, index) => (
             <div key={index} className="flex flex-col gap-2 mb-5">
-              <p className="text-xs text-muted-foreground capitalize">
+              <p
+                className={`text-xs capitalize ${chat.role === "user" ? "text-accent font-bold" : "text-muted-foreground"}`}
+              >
                 {chat.role === "user" ? "you" : "support"}
               </p>
               <p className="text-sm">{chat.parts[0].text}</p>
