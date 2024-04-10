@@ -1,4 +1,5 @@
 import {
+  Content,
   GoogleGenerativeAI,
   HarmBlockThreshold,
   HarmCategory,

@@ -20,6 +20,7 @@ export default function Page() {
   return (
     <main className="my-10 w-3/4 mx-auto flex flex-col gap-16 relative">
       <div className="flex justify-between items-center">
+        {/* Socket handler here */}
         <Stats />
 
         <div className="flex flex-col items-end gap-5">

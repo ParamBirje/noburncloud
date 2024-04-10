@@ -9,6 +9,13 @@ export default function socketHandler(socket: Socket): void {
     log(`Generate requirements`);
   });
 
+  setInterval(
+    () => {
+      socket.emit("update", Math.random());
+    },
+    Math.floor(Math.random() * 40000) + 10000
+  );
+
   socket.on("disconnect", () => {
     log(`user disconnected ${socket.id}`);
   });

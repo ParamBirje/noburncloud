@@ -8,6 +8,10 @@ export default function Stats() {
   useEffect(() => {
     const socket: Socket = io("http://localhost:5001");
 
+    socket.on("update", (data) => {
+      log("Connected to socket server: ", data);
+    });
+
     return () => {
       socket.close();
     };
