@@ -20,16 +20,17 @@ export default function socketHandler(socket: Socket): void {
 
   // Receives the stats from the user
   socket.on("update", async (data) => {
-    const response = await getRandomIteration(
+    let response = await getRandomIteration(
       data.requirement,
       data.architectureDescription
     );
 
     // Slicing title and desc
-    const semicolonIndex = response.indexOf(";");
+    const semicolonIndex = response.indexOf("|");
+
     const iteration = {
-      title: response.slice(0, semicolonIndex),
-      description: response.slice(semicolonIndex + 1),
+      title: response.slice(0, semicolonIndex).replace(/\*/g, ""),
+      description: response.slice(semicolonIndex + 1).replace(/\*/g, ""),
     };
 
     socket.emit("new-iteration", iteration);
