@@ -1,14 +1,18 @@
 import { oneTimeResponse } from "./ai-config";
 
-export async function getRandomIteration(requirement: string) {
-  const prompt = `Generate a random cloud architecture improvement or fix or feature for the following requirement: ${requirement}
+export async function getRandomIteration(
+  requirement: string,
+  architecturePrompt: string
+) {
+  const prompt = `app requirements;
+  \n${requirement}
   
-  Include a title and a description of that in a format where the : colon is the separator. DONT label. Directly output the title and description. Make the description under 20 words. DONT output number of words.
+  \n\ncloud architecture config;
+  \n${architecturePrompt}
   
-  example being,
-  This is an iteration: This is the description
+  \n\nusing this architecture description and app description, suggest a new improvement or a new feature to the app that would need an update to the cloud architecture config. DONT suggest already implemented ones.
   
-  Strictly use the format of this example. Be creative and generate new suggestions.`;
+  \n\nonly include a title and a very concise description.`;
   const text = await oneTimeResponse(prompt);
   return text;
 }
