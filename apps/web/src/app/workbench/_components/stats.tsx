@@ -1,21 +1,52 @@
 "use client";
 import { io, type Socket } from "socket.io-client";
 import { CircleDollarSign, Heart, Laugh } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { log } from "@repo/logger";
+import { architectureAtom, requirementsAtom } from "../page";
+import { useAtom } from "jotai";
 
 export default function Stats() {
-  useEffect(() => {
-    const socket: Socket = io("http://localhost:5001");
+  const [requirements] = useAtom(requirementsAtom);
+  const [architecture] = useAtom(architectureAtom);
+  const socketRef = useRef<Socket | null>(null);
 
-    socket.on("update", (data) => {
-      log("Connected to socket server: ", data);
+  useEffect(() => {
+    socketRef.current = io("http://localhost:5001");
+
+    return () => {
+      socketRef.current?.close();
+    };
+  }, []);
+
+  // For emitting the stats to the server
+  useEffect(() => {
+    if (requirements !== "" && architecture.prompt !== "") {
+      socketRef.current?.on("give-stats", () => {
+        socketRef.current?.emit("update", {
+          requirement: requirements,
+          architectureDescription: architecture.prompt,
+        });
+      });
+    } else {
+      log("Requirements or architecture is empty");
+    }
+
+    return () => {
+      socketRef.current?.off("give-stats");
+    };
+  }, [requirements, architecture]);
+
+  // For receiving the new iteration
+  useEffect(() => {
+    socketRef.current?.on("new-iteration", (data) => {
+      log(`New iteration: ${data}`);
     });
 
     return () => {
-      socket.close();
+      socketRef.current?.off("new-iteration");
     };
-  }, []);
+  });
 
   return (
     <div className="flex flex-col gap-5">
