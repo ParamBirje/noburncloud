@@ -24,7 +24,15 @@ export default function socketHandler(socket: Socket): void {
       data.requirement,
       data.architectureDescription
     );
-    socket.emit("new-iteration", response);
+
+    // Slicing title and desc
+    const semicolonIndex = response.indexOf(";");
+    const iteration = {
+      title: response.slice(0, semicolonIndex),
+      description: response.slice(semicolonIndex + 1),
+    };
+
+    socket.emit("new-iteration", iteration);
   });
 
   socket.on("disconnect", () => {

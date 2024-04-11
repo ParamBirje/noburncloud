@@ -3,12 +3,13 @@ import { io, type Socket } from "socket.io-client";
 import { CircleDollarSign, Heart, Laugh } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { log } from "@repo/logger";
-import { architectureAtom, requirementsAtom } from "../page";
+import { architectureAtom, iterationAtom, requirementsAtom } from "../page";
 import { useAtom } from "jotai";
 
 export default function Stats() {
   const [requirements] = useAtom(requirementsAtom);
   const [architecture] = useAtom(architectureAtom);
+  const [iteration, setIteration] = useAtom(iterationAtom);
   const socketRef = useRef<Socket | null>(null);
 
   useEffect(() => {
@@ -40,7 +41,7 @@ export default function Stats() {
   // For receiving the new iteration
   useEffect(() => {
     socketRef.current?.on("new-iteration", (data) => {
-      log(`New iteration: ${data}`);
+      setIteration([...iteration, data]);
     });
 
     return () => {

@@ -4,3 +4,8 @@ type ChatHistoryContent = {
     text: string;
   }[];
 };
+
+type Iteration = {
+  title: string;
+  description: string;
+};
