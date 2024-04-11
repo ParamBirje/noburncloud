@@ -12,7 +12,7 @@ export async function getRandomIteration(
   
   \n\nusing this architecture description and app description, suggest a new improvement or a new feature to the app that would need an update to the cloud architecture config. DONT suggest already implemented ones.
   
-  \n\nonly include a title and a very concise description.`;
+  \n\nonly include a title and a very concise description. Only use a semicolon to seperate title and description.`;
   const text = await oneTimeResponse(prompt);
   return text;
 }
