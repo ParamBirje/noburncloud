@@ -76,7 +76,6 @@ export default function Stats() {
   useEffect(() => {
     socketRef.current?.on("new-notification", (data) => {
       setNotifications([...notifications, data]);
-      log(`New notification: ${data}`);
     });
 
     return () => {
