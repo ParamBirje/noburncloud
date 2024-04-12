@@ -40,7 +40,7 @@ export default function Notifications() {
             {notifications.map((notification, index) => (
               <Alert key={index}>
                 <OctagonAlert color="yellow" size={15} />
-                <AlertTitle className="text-yellow-100">
+                <AlertTitle className="text-yellow-300">
                   <h4 className="scroll-m-20 text-md font-semibold tracking-tight">
                     Cloud Platform Notification
                   </h4>
