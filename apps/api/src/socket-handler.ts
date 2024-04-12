@@ -15,7 +15,7 @@ export default function socketHandler(socket: Socket): void {
     () => {
       socket.emit("give-stats");
     },
-    Math.floor(Math.random() * 40000) + 10000
+    Math.floor(Math.random() * 40000) + 120000
   );
 
   // Receives the stats from the user
@@ -41,7 +41,7 @@ export default function socketHandler(socket: Socket): void {
     () => {
       socket.emit("give-architecture");
     },
-    Math.floor(Math.random() * 40000) + 120000
+    Math.floor(Math.random() * 40000) + 200000
   );
 
   // Receives the architecture description from the user
