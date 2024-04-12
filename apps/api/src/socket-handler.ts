@@ -1,6 +1,6 @@
 import { log } from "@repo/logger";
 import { type Socket } from "socket.io";
-import { getRandomIteration } from "./services/iterations";
+import { getRandomCloudError, getRandomIteration } from "./services/iterations";
 
 export default function socketHandler(socket: Socket): void {
   log(`User ${socket.id} has connected!`);
@@ -34,6 +34,21 @@ export default function socketHandler(socket: Socket): void {
     };
 
     socket.emit("new-iteration", iteration);
+  });
+
+  // Sends a request to the user to give its current architecture description
+  setInterval(
+    () => {
+      socket.emit("give-architecture");
+    },
+    Math.floor(Math.random() * 40000) + 120000
+  );
+
+  // Receives the architecture description from the user
+  socket.on("update-architecture", async (data) => {
+    const response = await getRandomCloudError(data.architectureDescription);
+
+    socket.emit("new-notification", response);
   });
 
   socket.on("disconnect", () => {

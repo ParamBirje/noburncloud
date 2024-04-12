@@ -16,6 +16,7 @@ export const architectureAtom = atom({
 });
 export const chatHistoryAtom = atom<ChatHistoryContent[]>([]);
 export const iterationAtom = atom<Iteration[]>([]);
+export const notificationsAtom = atom<string[]>([]);
 
 export default function Page() {
   return (

@@ -3,13 +3,19 @@ import { io, type Socket } from "socket.io-client";
 import { CircleDollarSign, Heart, Laugh } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { log } from "@repo/logger";
-import { architectureAtom, iterationAtom, requirementsAtom } from "../page";
+import {
+  architectureAtom,
+  iterationAtom,
+  notificationsAtom,
+  requirementsAtom,
+} from "../page";
 import { useAtom } from "jotai";
 
 export default function Stats() {
   const [requirements] = useAtom(requirementsAtom);
   const [architecture] = useAtom(architectureAtom);
   const [iteration, setIteration] = useAtom(iterationAtom);
+  const [notifications, setNotifications] = useAtom(notificationsAtom);
   const socketRef = useRef<Socket | null>(null);
 
   useEffect(() => {
@@ -46,6 +52,35 @@ export default function Stats() {
 
     return () => {
       socketRef.current?.off("new-iteration");
+    };
+  });
+
+  // For emitting the architecture description to the server
+  useEffect(() => {
+    if (architecture.prompt !== "") {
+      socketRef.current?.on("give-architecture", () => {
+        socketRef.current?.emit("update-architecture", {
+          architectureDescription: architecture.prompt,
+        });
+      });
+    } else {
+      log("Architecture is empty");
+    }
+
+    return () => {
+      socketRef.current?.off("give-architecture");
+    };
+  }, [architecture]);
+
+  // For receiving the new notification
+  useEffect(() => {
+    socketRef.current?.on("new-notification", (data) => {
+      setNotifications([...notifications, data]);
+      log(`New notification: ${data}`);
+    });
+
+    return () => {
+      socketRef.current?.off("new-notification");
     };
   });
 
