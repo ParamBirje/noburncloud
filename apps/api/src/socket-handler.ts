@@ -5,6 +5,12 @@ import { getRandomCloudError, getRandomIteration } from "./services/iterations";
 export default function socketHandler(socket: Socket): void {
   log(`User ${socket.id} has connected!`);
 
+  // Initialising player's stats
+  let playerStats = {
+    users: 0,
+    billingCost: 0,
+  };
+
   // Generates requirements if user asks for it
   socket.on("requirement", () => {
     log(`Generate requirements`);
