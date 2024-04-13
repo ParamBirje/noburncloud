@@ -9,6 +9,7 @@ export default function socketHandler(socket: Socket): void {
   let playerStats = {
     users: 0,
     billingCost: 0,
+    satisfaction: 100,
   };
 
   // Generates requirements if user asks for it
