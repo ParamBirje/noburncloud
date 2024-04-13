@@ -7,6 +7,7 @@ import Iterations from "./_components/iterations";
 import Notifications from "./_components/notifications";
 import ChatSupport from "./_components/hosting-support/support";
 import SocketProvider from "@/components/socket-provider";
+import Sonner from "./_components/sonner";
 
 export default function Page() {
   return (
@@ -44,6 +45,8 @@ export default function Page() {
 
         {/* Docked to the right */}
         <Notifications />
+
+        <Sonner />
       </main>
     </SocketProvider>
   );
