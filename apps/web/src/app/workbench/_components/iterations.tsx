@@ -3,7 +3,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAtom } from "jotai";
 import React from "react";
-import { iterationAtom } from "../page";
+import { iterationAtom } from "@/lib/atoms";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 export default function Iterations() {

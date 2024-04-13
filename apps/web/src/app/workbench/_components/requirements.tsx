@@ -2,7 +2,7 @@
 
 import { log } from "@repo/logger";
 import { useAtom } from "jotai";
-import { requirementsAtom } from "../page";
+import { requirementsAtom } from "@/lib/atoms";
 import { useEffect } from "react";
 import Markdown from "react-markdown";
 

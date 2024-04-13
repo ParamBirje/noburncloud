@@ -2,22 +2,11 @@ import { Button } from "@/components/ui/button";
 import { Info } from "lucide-react";
 import Stats from "./_components/stats";
 import Requirements from "./_components/requirements";
-import { atom } from "jotai";
 import Architecture from "./_components/architecture/architecture";
 import Iterations from "./_components/iterations";
 import Notifications from "./_components/notifications";
 import ChatSupport from "./_components/hosting-support/support";
 import SocketProvider from "@/components/socket-provider";
-
-// states
-export const requirementsAtom = atom("");
-export const architectureAtom = atom({
-  prompt: "",
-  components: [],
-});
-export const chatHistoryAtom = atom<ChatHistoryContent[]>([]);
-export const iterationAtom = atom<Iteration[]>([]);
-export const notificationsAtom = atom<string[]>([]);
 
 export default function Page() {
   return (

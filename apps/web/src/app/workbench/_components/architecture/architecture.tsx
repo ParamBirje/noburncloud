@@ -3,7 +3,7 @@
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import DialogForm from "./form";
 import { useAtom } from "jotai";
-import { architectureAtom } from "../../page";
+import { architectureAtom } from "@/lib/atoms";
 import { ReactElement, useState } from "react";
 import { ArchitectureComponent } from "./component";
 

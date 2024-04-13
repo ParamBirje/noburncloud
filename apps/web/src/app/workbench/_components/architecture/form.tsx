@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
 import { useAtom } from "jotai";
-import { architectureAtom } from "../../page";
+import { architectureAtom } from "@/lib/atoms";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { log } from "@repo/logger";

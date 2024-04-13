@@ -5,7 +5,7 @@ import {
   iterationAtom,
   notificationsAtom,
   requirementsAtom,
-} from "@/app/workbench/page";
+} from "@/lib/atoms";
 import { log } from "@repo/logger";
 import { useAtom } from "jotai";
 import { useEffect, useRef } from "react";

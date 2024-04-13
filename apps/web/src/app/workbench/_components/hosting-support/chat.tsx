@@ -10,7 +10,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useAtom } from "jotai";
-import { chatHistoryAtom } from "../../page";
+import { chatHistoryAtom } from "@/lib/atoms";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { log } from "@repo/logger";

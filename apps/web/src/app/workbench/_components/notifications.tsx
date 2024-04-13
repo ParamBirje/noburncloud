@@ -12,7 +12,7 @@ import {
 import { useAtom } from "jotai";
 import { Bell, OctagonAlert } from "lucide-react";
 import React from "react";
-import { notificationsAtom } from "../page";
+import { notificationsAtom } from "@/lib/atoms";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import Markdown from "react-markdown";
 import { ScrollArea } from "@/components/ui/scroll-area";
