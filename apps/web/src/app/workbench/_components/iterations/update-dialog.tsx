@@ -14,23 +14,53 @@ import {
 } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
 import { useAtom } from "jotai";
-import { architectureAtom } from "@/lib/atoms";
+import { architectureAtom, iterationAtom } from "@/lib/atoms";
+import { log } from "@repo/logger";
 
 export default function ArchitectureUpdateDialog({
   children,
+  iteration,
 }: {
+  iteration: Iteration;
   children: React.ReactNode;
 }) {
   const [architecture, setArchitecture] = useAtom(architectureAtom);
+  const [iterations, setIterations] = useAtom(iterationAtom);
+  const [updatedArchitecture, setUpdatedArchitecture] = useState<string>("");
   const [prompt, setPrompt] = useState<string>();
 
   useEffect(() => {
     void (async () => {
-      if (architecture.prompt !== "") {
-        // Call the server to update the architecture and delete the iteration card
+      if (updatedArchitecture !== "") {
+        log(
+          `for iteration: ${iteration.title} | ${iteration.description} and architecture: ${updatedArchitecture}`
+        );
+        const response = await fetch(
+          "http://localhost:5001/architecture/check",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              desc: updatedArchitecture,
+              iteration: `${iteration.title} | ${iteration.description}`,
+            }),
+          }
+        );
+        const data = await response.json();
+
+        if (data.message === "yes") {
+          setArchitecture({ ...architecture, prompt: updatedArchitecture });
+          setIterations(
+            iterations.filter((iter: Iteration) => iter !== iteration)
+          );
+        } else {
+          log("Architecture update failed.");
+        }
       }
     })();
-  }, [architecture.prompt]);
+  }, [updatedArchitecture]);
 
   return (
     <Dialog>
@@ -67,7 +97,7 @@ export default function ArchitectureUpdateDialog({
             <Button
               onClick={() => {
                 if (prompt) {
-                  setArchitecture({ ...architecture, prompt });
+                  setUpdatedArchitecture(prompt);
                 }
               }}
             >

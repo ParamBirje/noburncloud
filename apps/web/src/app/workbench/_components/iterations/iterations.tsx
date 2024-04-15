@@ -39,7 +39,7 @@ export default function Iterations() {
                     </p>
                   </CardContent>
                   <CardFooter className="gap-3">
-                    <ArchitectureUpdateDialog>
+                    <ArchitectureUpdateDialog iteration={iter}>
                       <Button variant="secondary">Integrate</Button>
                     </ArchitectureUpdateDialog>
 

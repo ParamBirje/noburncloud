@@ -29,3 +29,18 @@ export async function getRandomCloudError(
   const text = await oneTimeResponse(prompt);
   return text;
 }
+
+export async function checkConfigWithIteration(
+  architecturePrompt: string,
+  iterationDescription: string
+) {
+  const prompt = `cloud architecture:
+  \n${architecturePrompt}
+  
+  \n\nfeature description:
+  \n${iterationDescription}
+  
+  \n\nYou will strictly answer either yes or no, if the cloud architecture fulfills the requirements that the feature description demands. No additional text. Strictly yes or no.`;
+  const text = await oneTimeResponse(prompt);
+  return text;
+}
