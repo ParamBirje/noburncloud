@@ -16,6 +16,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { useAtom } from "jotai";
 import { architectureAtom, iterationAtom } from "@/lib/atoms";
 import { log } from "@repo/logger";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Ban, ClipboardCheck, Lightbulb } from "lucide-react";
 
 export default function ArchitectureUpdateDialog({
   children,
@@ -28,13 +30,18 @@ export default function ArchitectureUpdateDialog({
   const [iterations, setIterations] = useAtom(iterationAtom);
   const [updatedArchitecture, setUpdatedArchitecture] = useState<string>("");
   const [prompt, setPrompt] = useState<string>();
+  const [showAlert, setShowAlert] = useState({ failed: -1, message: "" });
+
+  function integrateIteration(): void {
+    if (showAlert.failed === 0) {
+      setArchitecture({ ...architecture, prompt: updatedArchitecture });
+      setIterations(iterations.filter((iter: Iteration) => iter !== iteration));
+    }
+  }
 
   useEffect(() => {
     void (async () => {
       if (updatedArchitecture !== "") {
-        log(
-          `for iteration: ${iteration.title} | ${iteration.description} and architecture: ${updatedArchitecture}`
-        );
         const response = await fetch(
           "http://localhost:5001/architecture/check",
           {
@@ -51,12 +58,17 @@ export default function ArchitectureUpdateDialog({
         const data = await response.json();
 
         if (data.message === "yes") {
-          setArchitecture({ ...architecture, prompt: updatedArchitecture });
-          setIterations(
-            iterations.filter((iter: Iteration) => iter !== iteration)
-          );
+          setShowAlert({
+            failed: 0,
+            message:
+              "The product enhancement can be successfully applied by using this updated config!",
+          });
         } else {
-          log("Architecture update failed.");
+          setShowAlert({
+            failed: 1,
+            message:
+              "The product enhancement cannot be applied using this config. Please try again.",
+          });
         }
       }
     })();
@@ -92,18 +104,59 @@ export default function ArchitectureUpdateDialog({
             </div>
           </div>
         </DialogHeader>
+
+        {showAlert.message !== "" && (
+          <Alert variant={showAlert.failed === 1 ? "destructive" : "default"}>
+            {showAlert.failed === 1 ? (
+              <Ban color="red" size={15} />
+            ) : (
+              <ClipboardCheck color="green" size={15} />
+            )}
+            <AlertTitle
+              className={`font-medium ${showAlert.failed === 1 ? "text-red-400" : "text-green-400"}`}
+            >
+              {showAlert.failed === 1
+                ? "Cannot Integrate"
+                : "Ready to Integrate"}
+            </AlertTitle>
+            <AlertDescription className="mt-2 text-sm text-muted-foreground">
+              {showAlert.message}
+            </AlertDescription>
+          </Alert>
+        )}
+
+        {showAlert.failed === 1 && (
+          <Alert>
+            <Lightbulb color="yellow" size={15} />
+            <AlertTitle className="font-medium text-yellow-300">
+              Hint
+            </AlertTitle>
+            <AlertDescription className="mt-2 text-sm text-muted-foreground">
+              Chat with the cloud platform support for help on how you could
+              integrate the feature.
+            </AlertDescription>
+          </Alert>
+        )}
+
         <DialogFooter>
-          <DialogClose asChild>
+          {showAlert.failed !== 0 && (
             <Button
               onClick={() => {
                 if (prompt) {
                   setUpdatedArchitecture(prompt);
                 }
               }}
+              variant="outline"
             >
               Submit
             </Button>
-          </DialogClose>
+          )}
+
+          {showAlert.failed === 0 && showAlert.message !== "" && (
+            <DialogClose asChild>
+              <Button onClick={integrateIteration}>Integrate</Button>
+            </DialogClose>
+          )}
         </DialogFooter>
       </DialogContent>
     </Dialog>
