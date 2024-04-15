@@ -31,6 +31,7 @@ export default function ArchitectureUpdateDialog({
   const [updatedArchitecture, setUpdatedArchitecture] = useState<string>("");
   const [prompt, setPrompt] = useState<string>();
   const [showAlert, setShowAlert] = useState({ failed: -1, message: "" });
+  const [loading, setLoading] = useState(false);
 
   function integrateIteration(): void {
     if (showAlert.failed === 0) {
@@ -42,6 +43,8 @@ export default function ArchitectureUpdateDialog({
   useEffect(() => {
     void (async () => {
       if (updatedArchitecture !== "") {
+        setLoading(true);
+
         const response = await fetch(
           "http://localhost:5001/architecture/check",
           {
@@ -55,6 +58,7 @@ export default function ArchitectureUpdateDialog({
             }),
           }
         );
+
         const data = await response.json();
 
         if (data.message === "yes") {
@@ -70,6 +74,8 @@ export default function ArchitectureUpdateDialog({
               "The product enhancement cannot be applied using this config. Please try again.",
           });
         }
+
+        setLoading(false);
       }
     })();
   }, [updatedArchitecture]);
@@ -141,6 +147,7 @@ export default function ArchitectureUpdateDialog({
         <DialogFooter>
           {showAlert.failed !== 0 && (
             <Button
+              disabled={loading}
               onClick={() => {
                 if (prompt) {
                   setUpdatedArchitecture(prompt);
@@ -148,7 +155,7 @@ export default function ArchitectureUpdateDialog({
               }}
               variant="outline"
             >
-              Submit
+              {loading ? "Checking..." : "Check"}
             </Button>
           )}
 
