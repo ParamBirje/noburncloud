@@ -6,15 +6,16 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
-import { useAtom } from "jotai";
 import React from "react";
 import { iterationAtom } from "@/lib/atoms";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import ArchitectureUpdateDialog from "./update-dialog";
+import { useAtom } from "jotai";
+import IterationDeleteDialog from "./delete-dialog";
 
 export default function Iterations() {
-  const [iteration] = useAtom(iterationAtom);
+  const [iterations] = useAtom(iterationAtom);
 
   return (
     <section id="iterations" className="flex flex-col gap-5">
@@ -25,7 +26,7 @@ export default function Iterations() {
           <ScrollArea className="h-[50vh] w-full">
             <div className="py-4 flex flex-col-reverse gap-4">
               {/* Subcards */}
-              {iteration.map((iter: Iteration, index: number) => (
+              {iterations.map((iter: Iteration, index: number) => (
                 <Card key={index}>
                   <CardHeader>
                     <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
@@ -42,7 +43,9 @@ export default function Iterations() {
                       <Button variant="secondary">Integrate</Button>
                     </ArchitectureUpdateDialog>
 
-                    <Button variant="ghost">Dismiss</Button>
+                    <IterationDeleteDialog index={index}>
+                      <Button variant="ghost">Dismiss</Button>
+                    </IterationDeleteDialog>
                   </CardFooter>
                 </Card>
               ))}

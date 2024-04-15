@@ -16,7 +16,7 @@ export default function Sonner() {
 
   useEffect(() => {
     if (iterations.length > 0) {
-      toast.info(`New Product Enhancement Received`, {
+      toast.info(`Product Enhancement List Updated`, {
         action: {
           label: "See",
           onClick: () => console.log("Undo"),
