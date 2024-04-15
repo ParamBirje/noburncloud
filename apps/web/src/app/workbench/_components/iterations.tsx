@@ -1,10 +1,16 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui/card";
 import { useAtom } from "jotai";
 import React from "react";
 import { iterationAtom } from "@/lib/atoms";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Button } from "@/components/ui/button";
 
 export default function Iterations() {
   const [iteration] = useAtom(iterationAtom);
@@ -30,6 +36,10 @@ export default function Iterations() {
                       {iter.description}
                     </p>
                   </CardContent>
+                  <CardFooter className="gap-3">
+                    <Button variant="secondary">Integrate</Button>
+                    <Button variant="outline">Dismiss</Button>
+                  </CardFooter>
                 </Card>
               ))}
             </div>
