@@ -39,10 +39,12 @@ module.exports = {
           DEFAULT: "hsl(var(--muted))",
           foreground: "hsl(var(--muted-foreground))",
         },
+        accent2: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
         accent: {
-          DEFAULT: "#95E72D"
-          // DEFAULT: "hsl(var(--accent))",
-          // foreground: "hsl(var(--accent-foreground))",
+          DEFAULT: "#95E72D",
         },
         popover: {
           DEFAULT: "hsl(var(--popover))",
