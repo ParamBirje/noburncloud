@@ -11,6 +11,7 @@ import React from "react";
 import { iterationAtom } from "@/lib/atoms";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
+import ArchitectureUpdateDialog from "./update-dialog";
 
 export default function Iterations() {
   const [iteration] = useAtom(iterationAtom);
@@ -37,8 +38,11 @@ export default function Iterations() {
                     </p>
                   </CardContent>
                   <CardFooter className="gap-3">
-                    <Button variant="secondary">Integrate</Button>
-                    <Button variant="outline">Dismiss</Button>
+                    <ArchitectureUpdateDialog>
+                      <Button variant="secondary">Integrate</Button>
+                    </ArchitectureUpdateDialog>
+
+                    <Button variant="ghost">Dismiss</Button>
                   </CardFooter>
                 </Card>
               ))}

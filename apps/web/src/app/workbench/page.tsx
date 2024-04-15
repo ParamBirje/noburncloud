@@ -3,7 +3,7 @@ import { Info } from "lucide-react";
 import Stats from "./_components/stats";
 import Requirements from "./_components/requirements";
 import Architecture from "./_components/architecture/architecture";
-import Iterations from "./_components/iterations";
+import Iterations from "./_components/iterations/iterations";
 import Notifications from "./_components/notifications";
 import ChatSupport from "./_components/hosting-support/support";
 import SocketProvider from "@/components/socket-provider";
