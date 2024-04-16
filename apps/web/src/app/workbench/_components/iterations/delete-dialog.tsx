@@ -11,6 +11,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import useSocketRef from "@/components/useSocket";
 
 export default function IterationDeleteDialog({
   index,
@@ -20,9 +21,11 @@ export default function IterationDeleteDialog({
   children: React.ReactNode;
 }) {
   const [_iterations, setIterations] = useAtom(iterationAtom);
+  const socketRef = useSocketRef();
 
   function deleteIteration(): void {
     setIterations((prev) => prev.filter((_, i) => i !== index));
+    socketRef.current?.emit("dismiss-iteration");
   }
 
   return (

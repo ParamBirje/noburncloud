@@ -58,6 +58,20 @@ export default function socketHandler(socket: Socket): void {
     socket.emit("new-notification", response);
   });
 
+  // When user removes an iteration, decrease satisfaction
+  socket.on("dismiss-iteration", () => {
+    playerStats.satisfaction -= Math.floor(Math.random() * 5);
+    playerStats.users = 1.01; // Increase users by 1%
+    socket.emit("send-stats", playerStats);
+  });
+
+  // When user integrates an iteration, increase satisfaction
+  socket.on("integrate-iteration", () => {
+    playerStats.satisfaction += Math.floor(Math.random() * 5);
+    playerStats.users = 1.08; // Increase users by 8%
+    socket.emit("send-stats", playerStats);
+  });
+
   socket.on("disconnect", () => {
     log(`user disconnected ${socket.id}`);
   });
