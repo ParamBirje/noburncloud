@@ -7,7 +7,7 @@ export default function socketHandler(socket: Socket): void {
 
   // Initialising player's stats
   let playerStats = {
-    users: 0,
+    users: 1.02,
     billingCost: 0,
     satisfaction: 100,
   };
