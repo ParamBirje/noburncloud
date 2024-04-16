@@ -8,19 +8,21 @@ import {
 } from "@/lib/atoms";
 import { log } from "@repo/logger";
 import { useAtom } from "jotai";
-import { useEffect, useRef } from "react";
-import { Socket, io } from "socket.io-client";
+import { useEffect } from "react";
+import { io } from "socket.io-client";
+import useSocketRef from "./useSocket";
 
 export default function SocketProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const socketRef = useSocketRef();
+
   const [requirements] = useAtom(requirementsAtom);
   const [architecture] = useAtom(architectureAtom);
   const [iteration, setIteration] = useAtom(iterationAtom);
   const [notifications, setNotifications] = useAtom(notificationsAtom);
-  const socketRef = useRef<Socket | null>(null);
 
   useEffect(() => {
     socketRef.current = io("http://localhost:5001");
