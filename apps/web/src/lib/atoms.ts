@@ -1,4 +1,5 @@
 import { atom } from "jotai";
+import { Socket } from "socket.io-client";
 
 export const requirementsAtom = atom("");
 export const architectureAtom = atom({
@@ -14,3 +15,11 @@ export const playerStatsAtom = atom<PlayerStats>({
   billingCost: 0,
   satisfaction: 100,
 });
+
+export const playerStatsMultiplierAtom = atom<PlayerStats>({
+  users: 0,
+  billingCost: 0,
+  satisfaction: 100,
+});
+
+export const socketAtom = atom<Socket | null>(null);

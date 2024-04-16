@@ -4,7 +4,10 @@ import {
   architectureAtom,
   iterationAtom,
   notificationsAtom,
+  playerStatsAtom,
+  playerStatsMultiplierAtom,
   requirementsAtom,
+  socketAtom,
 } from "@/lib/atoms";
 import { log } from "@repo/logger";
 import { useAtom } from "jotai";
@@ -23,14 +26,43 @@ export default function SocketProvider({
   const [architecture] = useAtom(architectureAtom);
   const [iteration, setIteration] = useAtom(iterationAtom);
   const [notifications, setNotifications] = useAtom(notificationsAtom);
+  const [_socket, setSocket] = useAtom(socketAtom);
+  const [_playerStats, setPlayerStats] = useAtom(playerStatsAtom);
+  const [playerStatsMultiplier, setPlayerStatsMultiplier] = useAtom(
+    playerStatsMultiplierAtom
+  );
 
   useEffect(() => {
     socketRef.current = io("http://localhost:5001");
+    setSocket(socketRef.current);
 
     return () => {
       socketRef.current?.close();
     };
   }, []);
+
+  // PlayerStats received from the server every minute
+  useEffect(() => {
+    if (architecture.components.length !== 0) {
+      socketRef.current?.on("send-stats", (data: PlayerStats) => {
+        setPlayerStatsMultiplier(data);
+      });
+    }
+
+    return () => {
+      socketRef.current?.off("send-stats");
+    };
+  }, [architecture.components]);
+
+  // change playerStats according to the multiplier
+  useEffect(() => {
+    if (architecture.components.length === 0) return;
+    setPlayerStats((prev) => ({
+      users: Math.floor(prev.users * playerStatsMultiplier.users + 1),
+      billingCost: playerStatsMultiplier.billingCost,
+      satisfaction: playerStatsMultiplier.satisfaction,
+    }));
+  }, [playerStatsMultiplier]);
 
   // For emitting the stats to the server
   useEffect(() => {

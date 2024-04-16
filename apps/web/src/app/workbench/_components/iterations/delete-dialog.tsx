@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { iterationAtom } from "@/lib/atoms";
+import { iterationAtom, socketAtom } from "@/lib/atoms";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -12,6 +12,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import useSocketRef from "@/components/useSocket";
+import { log } from "@repo/logger";
 
 export default function IterationDeleteDialog({
   index,
@@ -21,11 +22,15 @@ export default function IterationDeleteDialog({
   children: React.ReactNode;
 }) {
   const [_iterations, setIterations] = useAtom(iterationAtom);
-  const socketRef = useSocketRef();
+  const [socket] = useAtom(socketAtom);
 
   function deleteIteration(): void {
     setIterations((prev) => prev.filter((_, i) => i !== index));
-    socketRef.current?.emit("dismiss-iteration");
+    if (socket) {
+      socket.emit("dismiss-iteration");
+    } else {
+      log("Socket is not connected");
+    }
   }
 
   return (

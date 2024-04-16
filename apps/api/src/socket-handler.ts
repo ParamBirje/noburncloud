@@ -2,15 +2,19 @@ import { log } from "@repo/logger";
 import { type Socket } from "socket.io";
 import { getRandomCloudError, getRandomIteration } from "./services/iterations";
 
+const defaultPlayerStats = {
+  users: 1.02,
+  billingCost: 0,
+  satisfaction: 100,
+};
+
+const updatePlayerStatsDelay = 14; // in seconds
+
 export default function socketHandler(socket: Socket): void {
   log(`User ${socket.id} has connected!`);
 
   // Initialising player's stats
-  let playerStats = {
-    users: 1.02,
-    billingCost: 0,
-    satisfaction: 100,
-  };
+  let playerStats = defaultPlayerStats;
 
   // Generates requirements if user asks for it
   socket.on("requirement", () => {
@@ -27,7 +31,7 @@ export default function socketHandler(socket: Socket): void {
 
   // Receives the stats from the user
   socket.on("update", async (data) => {
-    let response = await getRandomIteration(
+    const response = await getRandomIteration(
       data.requirement,
       data.architectureDescription
     );
@@ -58,17 +62,28 @@ export default function socketHandler(socket: Socket): void {
     socket.emit("new-notification", response);
   });
 
+  // Sends the default stats to the user every time interval
+  setInterval(() => {
+    playerStats = {
+      users: defaultPlayerStats.users,
+      billingCost: playerStats.billingCost,
+      satisfaction: playerStats.satisfaction,
+    };
+    socket.emit("send-stats", playerStats);
+  }, updatePlayerStatsDelay * 1000);
+
   // When user removes an iteration, decrease satisfaction
   socket.on("dismiss-iteration", () => {
-    playerStats.satisfaction -= Math.floor(Math.random() * 5);
-    playerStats.users = 1.01; // Increase users by 1%
+    log(`User ${socket.id} has dismissed an iteration`);
+    playerStats.satisfaction -= Math.floor(Math.random() * 5) + 1;
+    playerStats.users = 0.92; // Decrease users by 8%
     socket.emit("send-stats", playerStats);
   });
 
   // When user integrates an iteration, increase satisfaction
   socket.on("integrate-iteration", () => {
     playerStats.satisfaction += Math.floor(Math.random() * 5);
-    playerStats.users = 1.08; // Increase users by 8%
+    playerStats.users = 1.1; // Increase users by 10%
     socket.emit("send-stats", playerStats);
   });
 
