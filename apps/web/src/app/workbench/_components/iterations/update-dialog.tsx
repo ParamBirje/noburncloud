@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
 import { useAtom } from "jotai";
-import { architectureAtom, iterationAtom } from "@/lib/atoms";
+import { architectureAtom, iterationAtom, socketAtom } from "@/lib/atoms";
 import { log } from "@repo/logger";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Ban, ClipboardCheck, Lightbulb } from "lucide-react";
@@ -28,6 +28,7 @@ export default function ArchitectureUpdateDialog({
 }) {
   const [architecture, setArchitecture] = useAtom(architectureAtom);
   const [iterations, setIterations] = useAtom(iterationAtom);
+  const [socket] = useAtom(socketAtom);
   const [updatedArchitecture, setUpdatedArchitecture] = useState<string>("");
   const [prompt, setPrompt] = useState<string>();
   const [showAlert, setShowAlert] = useState({ failed: -1, message: "" });
@@ -37,6 +38,11 @@ export default function ArchitectureUpdateDialog({
     if (showAlert.failed === 0) {
       setArchitecture({ ...architecture, prompt: updatedArchitecture });
       setIterations(iterations.filter((iter: Iteration) => iter !== iteration));
+      if (socket) {
+        socket.emit("integrate-iteration");
+      } else {
+        log("Socket is not connected");
+      }
     }
   }
 
