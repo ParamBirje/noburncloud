@@ -29,7 +29,7 @@ export default function socketHandler(socket: Socket): void {
     () => {
       socket.emit("give-stats");
     },
-    Math.floor(Math.random() * 40000) + sendIterationBaseDelay
+    Math.floor(Math.random() * 40000) + sendIterationBaseDelay * 1000
   );
 
   // Receives the stats from the user
@@ -55,7 +55,7 @@ export default function socketHandler(socket: Socket): void {
     () => {
       socket.emit("give-architecture");
     },
-    Math.floor(Math.random() * 40000) + sendCloudErrorBaseDelay
+    Math.floor(Math.random() * 40000) + sendCloudErrorBaseDelay * 1000
   );
 
   // Receives the architecture description from the user
@@ -90,7 +90,7 @@ export default function socketHandler(socket: Socket): void {
 
   // When user integrates an iteration, increase satisfaction
   socket.on("integrate-iteration", () => {
-    playerStats.satisfaction += Math.floor(Math.random() * 5) + 1;
+    playerStats.satisfaction += Math.floor(Math.random() * 5) + 2;
     playerStats.users = 1.1; // Increase users by 10%
     socket.emit("send-stats", playerStats);
   });
