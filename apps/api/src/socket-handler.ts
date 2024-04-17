@@ -91,6 +91,7 @@ export default function socketHandler(socket: Socket): void {
   // When user integrates an iteration, increase satisfaction
   socket.on("integrate-iteration", () => {
     playerStats.satisfaction += Math.floor(Math.random() * 5) + 2;
+    if (playerStats.satisfaction > 100) playerStats.satisfaction = 100;
     playerStats.users = 1.1; // Increase users by 10%
     socket.emit("send-stats", playerStats);
   });
