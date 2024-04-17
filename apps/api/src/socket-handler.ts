@@ -10,6 +10,8 @@ const defaultPlayerStats = {
 
 // in seconds
 const updatePlayerStatsDelay = 14;
+const sendCloudErrorBaseDelay = 200;
+const sendIterationBaseDelay = 120;
 
 export default function socketHandler(socket: Socket): void {
   log(`User ${socket.id} has connected!`);
@@ -27,7 +29,7 @@ export default function socketHandler(socket: Socket): void {
     () => {
       socket.emit("give-stats");
     },
-    Math.floor(Math.random() * 40000) + 120000
+    Math.floor(Math.random() * 40000) + sendIterationBaseDelay
   );
 
   // Receives the stats from the user
@@ -53,7 +55,7 @@ export default function socketHandler(socket: Socket): void {
     () => {
       socket.emit("give-architecture");
     },
-    Math.floor(Math.random() * 40000) + 200000
+    Math.floor(Math.random() * 40000) + sendCloudErrorBaseDelay
   );
 
   // Receives the architecture description from the user
