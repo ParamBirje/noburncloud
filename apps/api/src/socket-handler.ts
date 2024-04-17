@@ -8,7 +8,8 @@ const defaultPlayerStats = {
   satisfaction: 100,
 };
 
-const updatePlayerStatsDelay = 14; // in seconds
+// in seconds
+const updatePlayerStatsDelay = 14;
 
 export default function socketHandler(socket: Socket): void {
   log(`User ${socket.id} has connected!`);
@@ -59,7 +60,12 @@ export default function socketHandler(socket: Socket): void {
   socket.on("update-architecture", async (data) => {
     const response = await getRandomCloudError(data.architectureDescription);
 
+    // Decrease users by 15% and decrease satisfaction by anywhere from 5-10
+    playerStats.users = 0.85;
+    playerStats.satisfaction -= Math.floor(Math.random() * 5) + 5;
+
     socket.emit("new-notification", response);
+    socket.emit("send-stats", playerStats);
   });
 
   // Sends the default stats to the user every time interval

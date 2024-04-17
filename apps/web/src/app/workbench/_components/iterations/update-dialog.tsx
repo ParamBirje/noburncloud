@@ -43,6 +43,9 @@ export default function ArchitectureUpdateDialog({
       } else {
         log("Socket is not connected");
       }
+
+      // Reset showAlert
+      setShowAlert({ failed: -1, message: "" });
     }
   }
 
