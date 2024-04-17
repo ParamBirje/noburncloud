@@ -11,7 +11,7 @@ import {
 } from "@/lib/atoms";
 import { log } from "@repo/logger";
 import { useAtom } from "jotai";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import useSocketRef from "./useSocket";
 
@@ -27,10 +27,13 @@ export default function SocketProvider({
   const [iteration, setIteration] = useAtom(iterationAtom);
   const [notifications, setNotifications] = useAtom(notificationsAtom);
   const [_socket, setSocket] = useAtom(socketAtom);
-  const [_playerStats, setPlayerStats] = useAtom(playerStatsAtom);
+  const [playerStats, setPlayerStats] = useAtom(playerStatsAtom);
   const [playerStatsMultiplier, setPlayerStatsMultiplier] = useAtom(
     playerStatsMultiplierAtom
   );
+
+  // Keep track of the last billing requested to allow only one request per significant change
+  const [lastBillingRequested, setLastBillingRequested] = useState(0);
 
   useEffect(() => {
     socketRef.current = io("http://localhost:5001");
@@ -40,6 +43,34 @@ export default function SocketProvider({
       socketRef.current?.close();
     };
   }, []);
+
+  // Get billing costs every significant change in playerStats.users
+  useEffect(() => {
+    // Finding the nearest and lowest power of 10 of the number of users
+    const lowerPower = Math.pow(10, Math.floor(Math.log10(playerStats.users)));
+    const lower = Math.floor(playerStats.users / lowerPower) * lowerPower;
+
+    if (
+      playerStats.users <= lower * 1.15 && // Check if it users are near by 15% of the nearest multiple of 100
+      !(
+        (lower <= lastBillingRequested && lastBillingRequested <= lower * 1.15) // Prevents multiple requests
+      ) &&
+      playerStats.users > 10
+    ) {
+      socketRef.current?.emit("request-billing-cost", {
+        architecturePrompt: architecture.prompt,
+        users: playerStats.users,
+      });
+      setLastBillingRequested(playerStats.users);
+    }
+
+    if (playerStats.users % 100 === 0) {
+      socketRef.current?.emit("get-billing-cost", {
+        architecturePrompt: architecture.prompt,
+        users: playerStats.users,
+      });
+    }
+  }, [playerStats.users]);
 
   // PlayerStats received from the server every minute
   useEffect(() => {

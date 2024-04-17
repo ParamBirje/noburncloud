@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
 import { useAtom } from "jotai";
-import { architectureAtom } from "@/lib/atoms";
+import { architectureAtom, socketAtom } from "@/lib/atoms";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { log } from "@repo/logger";
@@ -23,12 +23,14 @@ export default function DialogForm({
   getComponents: () => Promise<void>;
 }) {
   const [architecture, setArchitecture] = useAtom(architectureAtom);
+  const [socket] = useAtom(socketAtom);
   const [prompt, setPrompt] = useState<string>();
 
   useEffect(() => {
     void (async () => {
       if (architecture.prompt !== "") {
         await getComponents();
+        if (socket) socket.emit("request-billing-cost", architecture.prompt);
       }
     })();
   }, [architecture.prompt]);

@@ -1,6 +1,7 @@
 import { log } from "@repo/logger";
 import { type Socket } from "socket.io";
 import { getRandomCloudError, getRandomIteration } from "./services/iterations";
+import { getMonthlyBillingCost } from "./services/playerstats";
 
 const defaultPlayerStats = {
   users: 1.02,
@@ -93,6 +94,18 @@ export default function socketHandler(socket: Socket): void {
     playerStats.satisfaction += Math.floor(Math.random() * 5) + 2;
     if (playerStats.satisfaction > 100) playerStats.satisfaction = 100;
     playerStats.users = 1.1; // Increase users by 10%
+    socket.emit("send-stats", playerStats);
+  });
+
+  socket.on("request-billing-cost", async (data) => {
+    let response = await getMonthlyBillingCost(data, playerStats.users);
+    response = response.replace(",", "").replace("$", "");
+    playerStats = {
+      users: 1,
+      billingCost: Math.round(Number(response)) ?? playerStats.billingCost,
+      satisfaction: playerStats.satisfaction,
+    };
+    log(`Received billing cost: ${response}`);
     socket.emit("send-stats", playerStats);
   });
 

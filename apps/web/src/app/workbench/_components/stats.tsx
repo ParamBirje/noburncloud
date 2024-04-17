@@ -17,7 +17,7 @@ export default function Stats() {
         <p className="text-2xl font-bold">
           {`${playerStats.billingCost} `}
           <span className="font-normal text-sm text-muted-foreground">
-            monthly bills
+            in monthly bills
           </span>
         </p>
       </div>
