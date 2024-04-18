@@ -33,8 +33,13 @@ export default function Stats() {
             </span>
           </p>
         </div>
-        <div className="flex items-center gap-5">
-          <Heart size={30} />
+        <div
+          className={`flex items-center gap-5 ${playerStats.satisfaction < 30 && "animate-pulse"}`}
+        >
+          <Heart
+            className={`${playerStats.satisfaction < 30 && "text-red-400"}`}
+            size={30}
+          />
           <p className="text-2xl font-bold">
             {`${playerStats.satisfaction} `}
             <span className="font-normal text-sm text-muted-foreground">
