@@ -27,9 +27,13 @@ export default function Requirements() {
         Requirements
       </h3>
 
-      <Markdown className="text-sm text-muted-foreground tracking-wide">
-        {requirements}
-      </Markdown>
+      {requirements === "" ? (
+        <p className="text-sm text-muted-foreground">Loading...</p>
+      ) : (
+        <Markdown className="text-sm text-muted-foreground tracking-wide">
+          {requirements}
+        </Markdown>
+      )}
     </section>
   );
 }
