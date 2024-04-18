@@ -153,10 +153,16 @@ export default function ArchitectureUpdateDialog({
           </Alert>
         )}
 
-        <DialogFooter>
+        <DialogFooter className="items-center gap-4">
+          {prompt === undefined && (
+            <p className="text-sm text-muted-foreground">
+              No change in the config detected.
+            </p>
+          )}
+
           {showAlert.failed !== 0 && (
             <Button
-              disabled={loading}
+              disabled={loading || prompt === undefined}
               onClick={() => {
                 if (prompt) {
                   setUpdatedArchitecture(prompt);
