@@ -47,43 +47,53 @@ export default function DialogForm({
         </Button>
       </DialogTrigger>
       <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Describe your architecture in detail.</DialogTitle>
-          <DialogDescription className="tracking-wide">
-            This prompt will be used and processed to identify individual
-            services used. The sorting and identification process is done
-            automatically so give as much details as possible.
-          </DialogDescription>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            if (prompt) {
+              setArchitecture({ ...architecture, prompt });
+            }
+          }}
+        >
+          <DialogHeader>
+            <DialogTitle>Describe your architecture in detail.</DialogTitle>
+            <DialogDescription className="tracking-wide">
+              This prompt will be used and processed to identify individual
+              services used. The sorting and identification process is done
+              automatically so give as much details as possible.
+            </DialogDescription>
 
-          <div className="flex flex-col gap-5 py-3">
-            <div className="grid w-full gap-3">
-              <Textarea
-                defaultValue={architecture.prompt}
-                id="message"
-                onChange={(e) => {
-                  setPrompt(e.target.value);
-                }}
-                placeholder="Enter your architecture details here."
-              />
-              <p className="text-sm text-muted-foreground">
-                eg. This is an example
-              </p>
+            <div className="flex flex-col gap-5 py-3">
+              <div className="grid w-full gap-3">
+                <Textarea
+                  defaultValue={architecture.prompt}
+                  id="message"
+                  onChange={(e) => {
+                    setPrompt(e.target.value);
+                  }}
+                  placeholder="Enter your architecture details here."
+                />
+                <p className="text-sm text-muted-foreground">
+                  eg. This is an example
+                </p>
+              </div>
             </div>
-          </div>
-        </DialogHeader>
-        <DialogFooter>
-          <DialogClose asChild>
-            <Button
-              onClick={() => {
-                if (prompt) {
-                  setArchitecture({ ...architecture, prompt });
-                }
-              }}
-            >
-              Submit
-            </Button>
-          </DialogClose>
-        </DialogFooter>
+          </DialogHeader>
+          <DialogFooter>
+            <DialogClose asChild>
+              <Button
+                type="submit"
+                // onClick={() => {
+                //   if (prompt) {
+                //     setArchitecture({ ...architecture, prompt });
+                //   }
+                // }}
+              >
+                Submit
+              </Button>
+            </DialogClose>
+          </DialogFooter>
+        </form>
       </DialogContent>
     </Dialog>
   );
