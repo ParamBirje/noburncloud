@@ -1,9 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Textarea } from "@/components/ui/textarea";
 
 import Link from "next/link";
-import React from "react";
+import CustomRequirementForm from "./form";
 
 export default function Page() {
   return (
@@ -32,20 +31,7 @@ export default function Page() {
           <Separator />
         </div>
 
-        <div className="grid w-full gap-3">
-          <Textarea
-            id="message"
-            placeholder="Type your idea / requirement here."
-          />
-          <p className="text-sm text-muted-foreground">
-            This will be used to provide a tailored experience in the
-            simulation.
-          </p>
-        </div>
-
-        <Link href="/workbench" className="w-fit">
-          <Button>Continue</Button>
-        </Link>
+        <CustomRequirementForm />
       </div>
     </main>
   );

@@ -10,6 +10,7 @@ export default function Requirements() {
   const [requirements, setRequirements] = useAtom(requirementsAtom);
 
   useEffect(() => {
+    if (requirements !== "") return;
     fetch(`http://localhost:5001/requirements`, {
       method: "GET",
       cache: "no-store",
