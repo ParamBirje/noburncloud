@@ -60,6 +60,12 @@ export default function Chat() {
       </CardHeader>
       <CardContent className="pb-4">
         <ScrollArea className="h-[300px] rounded-md border p-4">
+          {chatHistory.length === 0 && (
+            <p className="text-sm text-muted-foreground">
+              &gt; Support team is <b>online.</b>
+            </p>
+          )}
+
           {chatHistory.map((chat, index) => (
             <div key={index} className="flex flex-col gap-2 mb-5">
               <p
@@ -70,6 +76,7 @@ export default function Chat() {
               <p className="text-sm">{chat.parts[0].text}</p>
             </div>
           ))}
+
           {loading && <p className="text-sm text-accent">Typing...</p>}
         </ScrollArea>
       </CardContent>
