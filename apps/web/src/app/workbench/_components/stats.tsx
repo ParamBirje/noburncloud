@@ -15,7 +15,7 @@ export default function Stats() {
       <div className="flex items-center gap-5">
         <CircleDollarSign size={30} />
         <p className="text-2xl font-bold">
-          {/* Multiplying by 25% to get a more accurate range */}
+          {/* Multiplying by 30% to get a more accurate range */}
           {`${playerStats.billingCost ? Math.round(playerStats.billingCost * 0.3) : "--"} `}
           <span className="font-normal text-sm text-muted-foreground">
             in monthly bills

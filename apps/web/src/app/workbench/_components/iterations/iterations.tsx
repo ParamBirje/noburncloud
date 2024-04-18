@@ -23,7 +23,7 @@ export default function Iterations() {
 
       <Card>
         <CardContent>
-          <ScrollArea className="max-h-[50vh] w-full">
+          <ScrollArea className="h-[50vh] w-full">
             <div className="py-4 flex flex-col-reverse gap-4">
               {iterations.length === 0 && (
                 <p className="text-sm text-muted-foreground">
