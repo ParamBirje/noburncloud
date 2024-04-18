@@ -19,8 +19,10 @@ import { log } from "@repo/logger";
 
 export default function DialogForm({
   getComponents,
+  isLoading,
 }: {
   getComponents: () => Promise<void>;
+  isLoading: boolean;
 }) {
   const [architecture, setArchitecture] = useAtom(architectureAtom);
   const [socket] = useAtom(socketAtom);
@@ -38,7 +40,7 @@ export default function DialogForm({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>
+        <Button disabled={isLoading}>
           {architecture.components.length > 0
             ? "Edit Config"
             : "Add Components"}

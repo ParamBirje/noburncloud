@@ -55,7 +55,7 @@ export default function Architecture(): ReactElement {
           )}
         </CardContent>
         <CardFooter className="flex justify-end">
-          <DialogForm getComponents={getComponents} />
+          <DialogForm getComponents={getComponents} isLoading={isLoading} />
         </CardFooter>
       </Card>
     </section>
