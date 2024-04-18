@@ -19,7 +19,10 @@ export default function Sonner() {
       toast.info(`Product Enhancement List Updated`, {
         action: {
           label: "See",
-          onClick: () => console.log("Undo"),
+          onClick: () => {
+            const element = document.getElementById("iterations");
+            element?.scrollIntoView({ behavior: "smooth" });
+          },
         },
       });
     }
