@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 
 import Link from "next/link";
-import CustomRequirementForm from "./form";
+import CustomRequirementForm from "./_components/form";
 
 export default function Page() {
   return (
