@@ -15,7 +15,7 @@ import { useAtom } from "jotai";
 import { architectureAtom, socketAtom } from "@/lib/atoms";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
-import { log } from "@repo/logger";
+import useCustomFormik from "@/lib/formik";
 
 export default function DialogForm({
   getComponents,
@@ -26,7 +26,18 @@ export default function DialogForm({
 }) {
   const [architecture, setArchitecture] = useAtom(architectureAtom);
   const [socket] = useAtom(socketAtom);
-  const [prompt, setPrompt] = useState<string>();
+
+  const formik = useCustomFormik({
+    maxLength: 1000,
+    onSubmit: handleSubmit,
+    defaultDesc: architecture.prompt,
+  });
+
+  function handleSubmit(values: any): void {
+    if (values.desc !== "") {
+      setArchitecture({ ...architecture, prompt: values.desc });
+    }
+  }
 
   useEffect(() => {
     void (async () => {
@@ -47,14 +58,7 @@ export default function DialogForm({
         </Button>
       </DialogTrigger>
       <DialogContent>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            if (prompt) {
-              setArchitecture({ ...architecture, prompt });
-            }
-          }}
-        >
+        <form onSubmit={formik.handleSubmit}>
           <DialogHeader>
             <DialogTitle>Describe your architecture in detail.</DialogTitle>
             <DialogDescription className="tracking-wide">
@@ -66,12 +70,10 @@ export default function DialogForm({
             <div className="flex flex-col gap-5 py-3">
               <div className="grid w-full gap-3">
                 <Textarea
-                  defaultValue={architecture.prompt}
+                  maxLength={1000}
                   id="message"
-                  onChange={(e) => {
-                    setPrompt(e.target.value);
-                  }}
                   placeholder="Enter your architecture details here."
+                  {...formik.getFieldProps("desc")}
                 />
                 <p className="text-sm text-muted-foreground">
                   eg. This is an example

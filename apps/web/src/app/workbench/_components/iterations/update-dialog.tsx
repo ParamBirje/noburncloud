@@ -51,7 +51,7 @@ export default function ArchitectureUpdateDialog({
 
   useEffect(() => {
     void (async () => {
-      if (updatedArchitecture !== "") {
+      if (updatedArchitecture !== "" && updatedArchitecture.length < 1000) {
         setLoading(true);
 
         const response = await fetch(
@@ -107,11 +107,12 @@ export default function ArchitectureUpdateDialog({
               <Textarea
                 defaultValue={architecture.prompt}
                 id="message"
+                maxLength={1000}
                 onChange={(e) => {
                   setPrompt(e.target.value);
                 }}
-                spellCheck={false}
                 placeholder="Enter your architecture details here."
+                spellCheck={false}
               />
               <p className="text-sm text-muted-foreground">
                 eg. This is an example

@@ -23,7 +23,7 @@ export default function Chat() {
   async function handleChatMessageSubmit(e: FormEvent): Promise<void> {
     e.preventDefault();
     setLoading(true);
-    if (latestMsg) {
+    if (latestMsg && latestMsg.length < 300) {
       const res = await fetch("http://localhost:5001/support", {
         method: "POST",
         headers: {
@@ -88,6 +88,7 @@ export default function Chat() {
           <Input
             disabled={loading}
             value={latestMsg}
+            maxLength={300}
             type="text"
             onChange={(e) => {
               setLatestMsg(e.target.value);
