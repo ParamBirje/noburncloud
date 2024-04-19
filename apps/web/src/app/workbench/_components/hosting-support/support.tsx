@@ -1,5 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import Chat from "./chat";
+import Fidgets from "./fidgets";
 
 export default function ChatSupport() {
   return (
@@ -8,10 +9,8 @@ export default function ChatSupport() {
 
       <div className="flex justify-between gap-5">
         <Card className="w-full">
-          <CardContent className="py-4">
-            <p className=" text-muted-foreground text-xl font-light">
-              Status <span className="text-accent">Healthy</span>
-            </p>
+          <CardContent className="py-4 flex flex-col gap-5">
+            <Fidgets />
           </CardContent>
         </Card>
 
