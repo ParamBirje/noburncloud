@@ -31,7 +31,7 @@ export default function Notifications() {
         <SheetHeader>
           <SheetTitle>Notifications</SheetTitle>
           <SheetDescription>
-            All the actionable notifications related to your deployment will be
+            All the notifications related to your cloud deployment will be
             visible here.
           </SheetDescription>
         </SheetHeader>
