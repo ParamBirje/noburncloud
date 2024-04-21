@@ -9,7 +9,7 @@ import {
   requirementsAtom,
   socketAtom,
 } from "@/lib/atoms";
-import { log } from "@repo/logger";
+
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
@@ -105,7 +105,7 @@ export default function SocketProvider({
         });
       });
     } else {
-      log("Requirements or architecture is empty");
+      console.log("Requirements or architecture is empty");
     }
 
     return () => {
@@ -133,7 +133,7 @@ export default function SocketProvider({
         });
       });
     } else {
-      log("Architecture is empty");
+      console.log("Architecture is empty");
     }
 
     return () => {

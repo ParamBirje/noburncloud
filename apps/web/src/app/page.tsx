@@ -1,4 +1,3 @@
-import { log } from "@repo/logger";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
