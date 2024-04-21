@@ -23,7 +23,7 @@ export default function Chat() {
     e.preventDefault();
     setLoading(true);
     if (latestMsg && latestMsg.length < 300) {
-      const res = await fetch("http://localhost:5001/support", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/support`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

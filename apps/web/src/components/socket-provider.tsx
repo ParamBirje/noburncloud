@@ -36,7 +36,7 @@ export default function SocketProvider({
   const [lastBillingRequested, setLastBillingRequested] = useState(0);
 
   useEffect(() => {
-    socketRef.current = io("http://localhost:5001");
+    socketRef.current = io(`${process.env.NEXT_PUBLIC_API_URL}`);
     setSocket(socketRef.current);
 
     return () => {

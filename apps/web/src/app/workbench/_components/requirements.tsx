@@ -10,7 +10,7 @@ export default function Requirements() {
 
   useEffect(() => {
     if (requirements !== "") return;
-    fetch(`http://localhost:5001/requirements`, {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/requirements`, {
       method: "GET",
       cache: "no-store",
     })

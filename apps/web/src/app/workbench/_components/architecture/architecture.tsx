@@ -14,15 +14,18 @@ export default function Architecture(): ReactElement {
   async function getComponents(): Promise<void> {
     setIsLoading(true);
     if (architecture.prompt !== "") {
-      const response = await fetch("http://localhost:5001/architecture", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          desc: architecture.prompt,
-        }),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/architecture`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            desc: architecture.prompt,
+          }),
+        }
+      );
 
       const jsonData = await response.json();
       setArchitecture({ ...architecture, components: jsonData.components });

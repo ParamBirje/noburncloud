@@ -55,7 +55,7 @@ export default function ArchitectureUpdateDialog({
         setLoading(true);
 
         const response = await fetch(
-          "http://localhost:5001/architecture/check",
+          `${process.env.NEXT_PUBLIC_API_URL}/architecture/check`,
           {
             method: "POST",
             headers: {
