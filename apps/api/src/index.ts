@@ -1,6 +1,6 @@
 import http from "http";
 import { Server } from "socket.io";
-import { log } from "@repo/logger";
+
 import { createServer } from "./server";
 import socketHandler from "./socket-handler";
 
@@ -33,5 +33,5 @@ app.get("/", (_req, res) => {
 });
 
 server.listen(port, () => {
-  log(`API running on http://localhost:${port}`);
+  console.log(`API running on http://localhost:${port}`);
 });

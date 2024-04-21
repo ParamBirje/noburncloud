@@ -1,4 +1,3 @@
-import { log } from "@repo/logger";
 import { type Socket } from "socket.io";
 import { getRandomCloudError, getRandomIteration } from "./services/iterations";
 import { getMonthlyBillingCost } from "./services/playerstats";
@@ -15,23 +14,20 @@ const sendCloudErrorBaseDelay = 200;
 const sendIterationBaseDelay = 120;
 
 export default function socketHandler(socket: Socket): void {
-  log(`User ${socket.id} has connected!`);
+  console.log(`User ${socket.id} has connected!`);
 
   // Initialising player's stats
   let playerStats = defaultPlayerStats;
 
   // Generates requirements if user asks for it
   socket.on("requirement", () => {
-    log(`Generate requirements`);
+    console.log(`Generate requirements`);
   });
 
   // Sends a request to the user to give its current stats
-  setInterval(
-    () => {
-      socket.emit("give-stats");
-    },
-    Math.floor(Math.random() * 40000) + sendIterationBaseDelay * 1000
-  );
+  setInterval(() => {
+    socket.emit("give-stats");
+  }, Math.floor(Math.random() * 40000) + sendIterationBaseDelay * 1000);
 
   // Receives the stats from the user
   socket.on("update", async (data) => {
@@ -52,12 +48,9 @@ export default function socketHandler(socket: Socket): void {
   });
 
   // Sends a request to the user to give its current architecture description
-  setInterval(
-    () => {
-      socket.emit("give-architecture");
-    },
-    Math.floor(Math.random() * 40000) + sendCloudErrorBaseDelay * 1000
-  );
+  setInterval(() => {
+    socket.emit("give-architecture");
+  }, Math.floor(Math.random() * 40000) + sendCloudErrorBaseDelay * 1000);
 
   // Receives the architecture description from the user
   socket.on("update-architecture", async (data) => {
@@ -83,7 +76,7 @@ export default function socketHandler(socket: Socket): void {
 
   // When user removes an iteration, decrease satisfaction
   socket.on("dismiss-iteration", () => {
-    log(`User ${socket.id} has dismissed an iteration`);
+    console.log(`User ${socket.id} has dismissed an iteration`);
     playerStats.satisfaction -= Math.floor(Math.random() * 5) + 1;
     playerStats.users = 0.92; // Decrease users by 8%
     socket.emit("send-stats", playerStats);
@@ -105,11 +98,11 @@ export default function socketHandler(socket: Socket): void {
       billingCost: Math.round(Number(response)) ?? playerStats.billingCost,
       satisfaction: playerStats.satisfaction,
     };
-    log(`Received billing cost: ${response}`);
+    console.log(`Received billing cost: ${response}`);
     socket.emit("send-stats", playerStats);
   });
 
   socket.on("disconnect", () => {
-    log(`user disconnected ${socket.id}`);
+    console.log(`user disconnected ${socket.id}`);
   });
 }

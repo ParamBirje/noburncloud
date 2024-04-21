@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { getArchitectureComponents } from "../services/workbench";
-import { log } from "@repo/logger";
+
 import { checkConfigWithIteration } from "../services/iterations";
 
 const router = Router();
@@ -21,7 +21,7 @@ router.put("/", async (req, res) => {
       components: JSON.parse(components),
     });
   } catch (e) {
-    log(`Error: Processing architecture components\n\t ${e}`);
+    console.log(`Error: Processing architecture components\n\t ${e}`);
     return res.json({
       error: "Cannot process json.",
     });
