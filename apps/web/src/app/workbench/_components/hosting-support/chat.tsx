@@ -13,7 +13,6 @@ import { useAtom } from "jotai";
 import { chatHistoryAtom } from "@/lib/atoms";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { FormEvent, useEffect, useRef, useState } from "react";
-import { log } from "@repo/logger";
 
 export default function Chat() {
   const [chatHistory, setChatHistory] = useAtom(chatHistoryAtom);
@@ -24,7 +23,7 @@ export default function Chat() {
     e.preventDefault();
     setLoading(true);
     if (latestMsg && latestMsg.length < 300) {
-      const res = await fetch("http://localhost:5001/support", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/support`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -69,7 +68,11 @@ export default function Chat() {
           {chatHistory.map((chat, index) => (
             <div key={index} className="flex flex-col gap-2 mb-5">
               <p
-                className={`text-xs capitalize ${chat.role === "user" ? "text-accent font-bold" : "text-muted-foreground"}`}
+                className={`text-xs capitalize ${
+                  chat.role === "user"
+                    ? "text-accent font-bold"
+                    : "text-muted-foreground"
+                }`}
               >
                 {chat.role === "user" ? "you" : "support"}
               </p>

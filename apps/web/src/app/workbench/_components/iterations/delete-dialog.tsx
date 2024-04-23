@@ -11,7 +11,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { log } from "@repo/logger";
 
 export default function IterationDeleteDialog({
   index,
@@ -28,7 +27,7 @@ export default function IterationDeleteDialog({
     if (socket) {
       socket.emit("dismiss-iteration");
     } else {
-      log("Socket is not connected");
+      console.log("Socket is not connected");
     }
   }
 

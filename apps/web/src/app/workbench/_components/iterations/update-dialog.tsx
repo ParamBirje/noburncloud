@@ -15,7 +15,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { useAtom } from "jotai";
 import { architectureAtom, iterationAtom, socketAtom } from "@/lib/atoms";
-import { log } from "@repo/logger";
+
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Ban, ClipboardCheck, Lightbulb } from "lucide-react";
 
@@ -41,7 +41,7 @@ export default function ArchitectureUpdateDialog({
       if (socket) {
         socket.emit("integrate-iteration");
       } else {
-        log("Socket is not connected");
+        console.log("Socket is not connected");
       }
 
       // Reset showAlert
@@ -55,7 +55,7 @@ export default function ArchitectureUpdateDialog({
         setLoading(true);
 
         const response = await fetch(
-          "http://localhost:5001/architecture/check",
+          `${process.env.NEXT_PUBLIC_API_URL}/architecture/check`,
           {
             method: "POST",
             headers: {
@@ -129,7 +129,9 @@ export default function ArchitectureUpdateDialog({
               <ClipboardCheck color="green" size={15} />
             )}
             <AlertTitle
-              className={`font-medium ${showAlert.failed === 1 ? "text-red-400" : "text-green-400"}`}
+              className={`font-medium ${
+                showAlert.failed === 1 ? "text-red-400" : "text-green-400"
+              }`}
             >
               {showAlert.failed === 1
                 ? "Cannot Integrate"
