@@ -1,5 +1,3 @@
-import { Button } from "@/components/ui/button";
-import { Info } from "lucide-react";
 import Stats from "./_components/stats";
 import Requirements from "./_components/requirements";
 import Architecture from "./_components/architecture/architecture";
@@ -8,6 +6,7 @@ import Notifications from "./_components/notifications";
 import ChatSupport from "./_components/hosting-support/support";
 import SocketProvider from "@/components/socket-provider";
 import Sonner from "./_components/sonner";
+import HelpSheet from "./_components/help/help-sheet";
 
 export default function Page() {
   return (
@@ -28,10 +27,7 @@ export default function Page() {
               </p>
             </div>
 
-            <Button className="flex items-center gap-2" variant="secondary">
-              <Info size={20} />
-              <p>Help</p>
-            </Button>
+            <HelpSheet />
           </div>
         </div>
 
