@@ -1,4 +1,4 @@
-import Link from "next/link";
+import RestartButton from "./_components/restart-button";
 import GameStats from "./_components/stats";
 import { Button } from "@/components/ui/button";
 
@@ -14,9 +14,7 @@ export default function Page() {
         corruptions; users stopped using and abandoned the app.
       </p>
 
-      <Link href="/onboard" className="w-fit">
-        <Button variant="default">Start Again</Button>
-      </Link>
+      <RestartButton />
 
       <GameStats />
     </main>
