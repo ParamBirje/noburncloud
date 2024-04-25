@@ -24,7 +24,7 @@ export default function Architecture(): ReactElement {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/architecture`,
         {
-          method: "PUT",
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
           },

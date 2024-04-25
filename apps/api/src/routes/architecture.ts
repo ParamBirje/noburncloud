@@ -8,7 +8,7 @@ import { checkConfigWithIteration } from "../services/iterations";
 
 const router = Router();
 
-router.put("/", async (req, res) => {
+router.post("/", async (req, res) => {
   const archDesc = await req.body.desc;
   if (!archDesc) {
     return res.json({
