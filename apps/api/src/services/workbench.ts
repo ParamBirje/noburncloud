@@ -55,3 +55,18 @@ export async function getArchitectureComponents(desc: string): Promise<string> {
   const text = await oneTimeResponse(prompt);
   return text;
 }
+
+export async function checkArchitecture(
+  architectureDescription: string,
+  requirements: string,
+  users: number
+): Promise<string> {
+  const prompt = `App Description: ${requirements}
+  \n\nArchitecture: ${architectureDescription}
+  \n\nUsers: ${users}
+
+  \n\nGive concise suggestions on how to improve the cloud architecture using services from the same cloud provider as given in the services to meet all the features in app description. Limit your response to 50 words. DONT give steps. Strictly give only brief overview.`;
+
+  const text = await oneTimeResponse(prompt);
+  return text;
+}

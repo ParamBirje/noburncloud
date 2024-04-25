@@ -3,17 +3,24 @@
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import DialogForm from "./form";
 import { useAtom } from "jotai";
-import { architectureAtom } from "@/lib/atoms";
+import { architectureAtom, requirementsAtom } from "@/lib/atoms";
 import { ReactElement, useState } from "react";
 import { ArchitectureComponent } from "./component";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Lightbulb } from "lucide-react";
+import Markdown from "react-markdown";
 
 export default function Architecture(): ReactElement {
   const [architecture, setArchitecture] = useAtom(architectureAtom);
+  const [requirements] = useAtom(requirementsAtom);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [suggestions, setSuggestions] = useState<string>();
 
   async function getComponents(): Promise<void> {
-    setIsLoading(true);
     if (architecture.prompt !== "") {
+      setIsLoading(true);
+      setSuggestions(undefined);
+
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/architecture`,
         {
@@ -29,8 +36,30 @@ export default function Architecture(): ReactElement {
 
       const jsonData = await response.json();
       setArchitecture({ ...architecture, components: jsonData.components });
+
+      setIsLoading(false);
+
+      if (jsonData.components.length !== 0) {
+        // Get suggestions for the architecture
+        const suggestionsResponse = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/architecture/suggest`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              archDesc: architecture.prompt,
+              requirements: requirements,
+              users: 100,
+            }),
+          }
+        );
+
+        const suggestionsData = await suggestionsResponse.json();
+        setSuggestions(suggestionsData.suggestions);
+      }
     }
-    setIsLoading(false);
   }
 
   return (
@@ -61,6 +90,20 @@ export default function Architecture(): ReactElement {
           <DialogForm getComponents={getComponents} isLoading={isLoading} />
         </CardFooter>
       </Card>
+
+      {suggestions && (
+        <Alert className="border-yellow-300 border-opacity-20">
+          <Lightbulb color="yellow" size={15} />
+          <AlertTitle className="text-yellow-300 font-medium">
+            Suggestions
+          </AlertTitle>
+          <AlertDescription className="mt-2">
+            <Markdown className="text-sm text-muted-foreground tracking-wide">
+              {suggestions}
+            </Markdown>
+          </AlertDescription>
+        </Alert>
+      )}
     </section>
   );
 }

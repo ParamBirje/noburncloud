@@ -1,5 +1,8 @@
 import { Router } from "express";
-import { getArchitectureComponents } from "../services/workbench";
+import {
+  checkArchitecture,
+  getArchitectureComponents,
+} from "../services/workbench";
 
 import { checkConfigWithIteration } from "../services/iterations";
 
@@ -26,6 +29,24 @@ router.put("/", async (req, res) => {
       error: "Cannot process json.",
     });
   }
+});
+
+router.post("/suggest", async (req, res) => {
+  const archDesc = await req.body.archDesc;
+  const requirements = await req.body.requirements;
+  const users = await req.body.users;
+
+  if (!archDesc || !requirements || !users) {
+    return res.json({
+      error: "Architecture description, requirements or users empty.",
+    });
+  }
+
+  let suggestions = await checkArchitecture(archDesc, requirements, users);
+
+  return res.json({
+    suggestions: suggestions,
+  });
 });
 
 // Checks if updated architecture description fulfills the requirements of the feature description
