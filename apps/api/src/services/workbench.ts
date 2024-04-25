@@ -47,6 +47,7 @@ export async function getArchitectureComponents(desc: string): Promise<string> {
   }]\n
   
   \n\nPer task, choose only one suitable service. No two services for the same task.
+  \nIf there are no services mentioned, then don't generate any services.
   
   \n\ndirectly output the validated json in string format, no additional text
   \nno chinese characters, only english`;
