@@ -16,6 +16,7 @@ import { architectureAtom, socketAtom } from "@/lib/atoms";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import useCustomFormik from "@/lib/formik";
+import { Pencil, Plus, Send } from "lucide-react";
 
 export default function DialogForm({
   getComponents,
@@ -51,7 +52,12 @@ export default function DialogForm({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button disabled={isLoading}>
+        <Button className="gap-2" disabled={isLoading}>
+          {architecture.components.length > 0 ? (
+            <Pencil size={15} />
+          ) : (
+            <Plus size={18} />
+          )}
           {architecture.components.length > 0
             ? "Edit Config"
             : "Add Components"}
@@ -83,14 +89,8 @@ export default function DialogForm({
           </DialogHeader>
           <DialogFooter>
             <DialogClose asChild>
-              <Button
-                type="submit"
-                // onClick={() => {
-                //   if (prompt) {
-                //     setArchitecture({ ...architecture, prompt });
-                //   }
-                // }}
-              >
+              <Button className="gap-2" type="submit">
+                <Send size={18} />
                 Submit
               </Button>
             </DialogClose>

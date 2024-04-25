@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import ArchitectureUpdateDialog from "./update-dialog";
 import { useAtom } from "jotai";
 import IterationDeleteDialog from "./delete-dialog";
+import { Blocks, Trash2 } from "lucide-react";
 
 export default function Iterations() {
   const [iterations] = useAtom(iterationAtom);
@@ -46,11 +47,17 @@ export default function Iterations() {
                   </CardContent>
                   <CardFooter className="gap-3">
                     <ArchitectureUpdateDialog iteration={iter}>
-                      <Button variant="secondary">Integrate</Button>
+                      <Button className="gap-2" variant="secondary">
+                        <Blocks size={15} />
+                        Integrate
+                      </Button>
                     </ArchitectureUpdateDialog>
 
                     <IterationDeleteDialog index={index}>
-                      <Button variant="ghost">Dismiss</Button>
+                      <Button className="gap-2" variant="ghost">
+                        <Trash2 size={15} />
+                        Dismiss
+                      </Button>
                     </IterationDeleteDialog>
                   </CardFooter>
                 </Card>

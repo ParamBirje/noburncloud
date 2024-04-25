@@ -13,6 +13,7 @@ import { useAtom } from "jotai";
 import { chatHistoryAtom } from "@/lib/atoms";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { FormEvent, useEffect, useRef, useState } from "react";
+import { Send } from "lucide-react";
 
 export default function Chat() {
   const [chatHistory, setChatHistory] = useAtom(chatHistoryAtom);
@@ -98,7 +99,8 @@ export default function Chat() {
             }}
             placeholder="Type your message here"
           />
-          <Button disabled={loading} type="submit">
+          <Button className="gap-3" disabled={loading} type="submit">
+            <Send size={18} />
             Send
           </Button>
         </form>
