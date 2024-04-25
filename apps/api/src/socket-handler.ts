@@ -3,15 +3,20 @@ import { getRandomCloudError, getRandomIteration } from "./services/iterations";
 import { getMonthlyBillingCost } from "./services/playerstats";
 
 const defaultPlayerStats = {
-  users: 1.02,
+  users: 1.06,
   billingCost: 0,
   satisfaction: 100,
 };
 
 // in seconds
 const updatePlayerStatsDelay = 14;
-const sendCloudErrorBaseDelay = 200;
-const sendIterationBaseDelay = 120;
+const sendCloudErrorBaseDelay = 150;
+const sendIterationBaseDelay = 90;
+
+// playerStats points
+const dismissIterationUsers = 0.9; // Decrease users
+const integrateIterationUsers = 1.19; // Increase users
+const cloudErrorUsers = 0.65;
 
 export default function socketHandler(socket: Socket): void {
   console.log(`User ${socket.id} has connected!`);
@@ -56,9 +61,8 @@ export default function socketHandler(socket: Socket): void {
   socket.on("update-architecture", async (data) => {
     const response = await getRandomCloudError(data.architectureDescription);
 
-    // Decrease users by 15% and decrease satisfaction by anywhere from 5-10
-    playerStats.users = 0.85;
-    playerStats.satisfaction -= Math.floor(Math.random() * 5) + 5;
+    playerStats.users = cloudErrorUsers;
+    playerStats.satisfaction -= Math.floor(Math.random() * 5) + 7;
 
     socket.emit("new-notification", response);
     socket.emit("send-stats", playerStats);
@@ -78,7 +82,7 @@ export default function socketHandler(socket: Socket): void {
   socket.on("dismiss-iteration", () => {
     console.log(`User ${socket.id} has dismissed an iteration`);
     playerStats.satisfaction -= Math.floor(Math.random() * 5) + 1;
-    playerStats.users = 0.92; // Decrease users by 8%
+    playerStats.users = dismissIterationUsers;
     socket.emit("send-stats", playerStats);
   });
 
@@ -86,7 +90,7 @@ export default function socketHandler(socket: Socket): void {
   socket.on("integrate-iteration", () => {
     playerStats.satisfaction += Math.floor(Math.random() * 5) + 2;
     if (playerStats.satisfaction > 100) playerStats.satisfaction = 100;
-    playerStats.users = 1.1; // Increase users by 10%
+    playerStats.users = integrateIterationUsers;
     socket.emit("send-stats", playerStats);
   });
 
@@ -94,7 +98,7 @@ export default function socketHandler(socket: Socket): void {
     let response = await getMonthlyBillingCost(data, playerStats.users);
     response = response.replace(",", "").replace("$", "");
     playerStats = {
-      users: 1,
+      users: playerStats.users,
       billingCost: Math.round(Number(response)) ?? playerStats.billingCost,
       satisfaction: playerStats.satisfaction,
     };
