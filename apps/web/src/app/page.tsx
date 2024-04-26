@@ -20,13 +20,13 @@ export default function Store(): JSX.Element {
         </div>
 
         <p className="text-muted-foreground tracking-wide w-3/4">
-          Implement your cloud architecture in a real world simulation. Itaque
-          maxime voluptate recusandae doloribus quis laudantium consectetur
-          velit quisquam corporis culpa.
+          Simulate and test your cloud architectures before you spend a dime.
+          Build better products with controlled costs and cloud deployments that
+          withstand the test of time.
         </p>
 
         <Link href="/onboard" className="w-fit">
-          <Button>Architect</Button>
+          <Button>Simulate</Button>
         </Link>
       </div>
     </main>
