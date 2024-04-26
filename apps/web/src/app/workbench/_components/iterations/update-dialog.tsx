@@ -115,7 +115,7 @@ export default function ArchitectureUpdateDialog({
                 spellCheck={false}
               />
               <p className="text-sm text-muted-foreground">
-                eg. This is an example
+                eg. Google Pub/Sub to integrate notifications
               </p>
             </div>
           </div>

@@ -68,9 +68,9 @@ export default function DialogForm({
           <DialogHeader>
             <DialogTitle>Describe your architecture in detail.</DialogTitle>
             <DialogDescription className="tracking-wide">
-              This prompt will be used and processed to identify individual
-              services used. The sorting and identification process is done
-              automatically so give as much details as possible.
+              This prompt will be used to identify individual services used. For
+              accurate estimation of billing costs give as much details as
+              possible. Mix and match services from different cloud providers!
             </DialogDescription>
 
             <div className="flex flex-col gap-5 py-3">
@@ -82,7 +82,8 @@ export default function DialogForm({
                   {...formik.getFieldProps("desc")}
                 />
                 <p className="text-sm text-muted-foreground">
-                  eg. This is an example
+                  eg. 3 t2.micro AWS EC2 instances for backend tasks, Google
+                  Firebase to store user data, etc.
                 </p>
               </div>
             </div>
