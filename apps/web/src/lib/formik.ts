@@ -16,6 +16,7 @@ export default function useCustomFormik({
     initialValues: {
       desc: defaultDesc || "",
     },
+    enableReinitialize: true,
     onSubmit,
   });
 
