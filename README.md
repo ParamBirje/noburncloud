@@ -35,8 +35,8 @@ Built using,
 
 ### Pre-requisites
 
-[Node v20.12 or above](https://nodejs.org/en/download) (comes with package manager `npm`)
-Ensure you have [Docker Engine and Docker Compose v2](https://docs.docker.com/compose/install/) installed and the engine is running.
+- [Node v20.12 or above](https://nodejs.org/en/download) (comes with package manager `npm`)
+- Ensure you have [Docker Engine and Docker Compose v2](https://docs.docker.com/compose/install/) installed and the engine is running.
 
 ### App Setup
 
