@@ -1,7 +1,7 @@
 <!-- PROJECT LOGO -->
 <p align="center">
-  <a href="https://github.com">
-   <img src="https://github.com/ParamBirje/JobsAhoy/assets/87022870/6171210e-21bb-45e9-9b72-c286ba79af01.jpg" alt="Logo">
+  <a href="https://noburncloud.parameater.co">
+   <img src="https://github.com/ParamBirje/noburncloud/assets/87022870/ca5583c2-db8c-4556-8576-11b934df5393.jpg" alt="Logo">
   </a>
 
   <h3 align="center">NoBurnCloud</h3>
