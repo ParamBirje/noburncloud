@@ -8,6 +8,10 @@ const monty = Montserrat({
   display: "swap",
 });
 
+export const metadata = {
+  title: "NoBurnCloud - Simulate and Test Cloud Architectures",
+};
+
 export default function RootLayout({
   children,
 }: {
