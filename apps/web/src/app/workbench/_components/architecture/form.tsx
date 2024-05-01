@@ -82,8 +82,11 @@ export default function DialogForm({
                   {...formik.getFieldProps("desc")}
                 />
                 <p className="text-sm text-muted-foreground">
-                  eg. 3 t2.micro AWS EC2 instances for backend tasks, Google
-                  Firebase to store user data, etc.
+                  <strong className="text-accent">EXAMPLE</strong>
+                  <br /> 3 t2.micro AWS EC2 instances for backend tasks, 1gb
+                  storage with Google Firebase for user data, Google Identity
+                  Platform for authenticating users, 10gb AWS S3 storage to
+                  store documents etc.
                 </p>
               </div>
             </div>

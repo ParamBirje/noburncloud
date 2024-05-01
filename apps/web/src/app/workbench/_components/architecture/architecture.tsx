@@ -7,7 +7,7 @@ import { architectureAtom, requirementsAtom } from "@/lib/atoms";
 import { ReactElement, useState } from "react";
 import { ArchitectureComponent } from "./component";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Lightbulb } from "lucide-react";
+import { Info, Lightbulb } from "lucide-react";
 import Markdown from "react-markdown";
 
 export default function Architecture(): ReactElement {
@@ -86,7 +86,14 @@ export default function Architecture(): ReactElement {
             </p>
           )}
         </CardContent>
-        <CardFooter className="flex justify-end">
+        <CardFooter className="flex items-center justify-end gap-5">
+          <div className="flex items-center gap-2 border py-2 px-3 rounded-md text-muted-foreground">
+            <Info size={15} />
+            <p className="text-sm">
+              For accurate cost estimates, provide specific usage level of
+              services used
+            </p>
+          </div>
           <DialogForm getComponents={getComponents} isLoading={isLoading} />
         </CardFooter>
       </Card>
