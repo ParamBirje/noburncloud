@@ -109,7 +109,10 @@ export default function ArchitectureUpdateDialog({
                 id="message"
                 maxLength={1000}
                 onChange={(e) => {
-                  setPrompt(e.target.value);
+                  setShowAlert({ failed: -1, message: "" });
+                  if (e.target.value !== architecture.prompt) {
+                    setPrompt(e.target.value);
+                  }
                 }}
                 placeholder="Enter your architecture details here."
                 spellCheck={false}
