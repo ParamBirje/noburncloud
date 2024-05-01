@@ -5,12 +5,17 @@ import cors from "cors";
 
 export const createServer = (): Express => {
   const app = express();
+
   app
     .disable("x-powered-by")
     .use(morgan("dev"))
     .use(urlencoded({ extended: true }))
     .use(json())
-    .use(cors())
+    .use(
+      cors({
+        origin: process.env.ALLOWED_ORIGIN,
+      })
+    )
     .get("/message/:name", (req, res) => {
       return res.json({ message: `hello ${req.params.name}` });
     })
