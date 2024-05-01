@@ -88,7 +88,7 @@ export default function Architecture(): ReactElement {
         </CardContent>
         <CardFooter className="flex items-center justify-end gap-5">
           <div className="flex items-center gap-2 border py-2 px-3 rounded-md text-muted-foreground">
-            <Info size={15} />
+            <Info className="text-accent" size={15} />
             <p className="text-sm">
               For accurate cost estimates, provide specific usage level of
               services used
