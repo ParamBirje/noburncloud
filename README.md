@@ -54,7 +54,7 @@ git clone https://github.com/ParamBirje/noburncloud.git
 GEMINI_API=API_KEY_HERE
 ```
 
-- Inside the root directory, run this command:
+- Inside the project root directory, run this command:
 
 ```
 docker compose --env-file .env up --build
