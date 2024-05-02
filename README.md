@@ -48,6 +48,8 @@ Let's start with the steps for setting up the project.
 git clone https://github.com/ParamBirje/noburncloud.git
 ```
 
+- Change working directory to the project's root `cd noburncloud`
+
 - Locate the `.env.example` in the project's root directory and make a copy of it as a `.env` file. Use your Gemini AI API key and assign it to the environment variable in the `.env` file.
 
 ```
@@ -77,6 +79,8 @@ Let's start with the steps for setting up the project.
 ```
 git clone https://github.com/ParamBirje/noburncloud.git
 ```
+
+- Change working directory to the project's root `cd noburncloud`
 
 ##### Backend Server (Express + Websockets)
 - Change your working directory to `/apps/api` and run
