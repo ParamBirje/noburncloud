@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRightIcon } from "lucide-react";
+import { ArrowRightIcon, InfoIcon } from "lucide-react";
 import Link from "next/link";
 
 export default function Store(): JSX.Element {
@@ -19,15 +19,27 @@ export default function Store(): JSX.Element {
           with controlled costs and cloud deployments that withstand the test of time.
         </p>
 
+        {/* For wider screen */}
         <Link
           href="/onboard"
-          className="group border border-white rounded-md p-4 bg-transparent text-white duration-150 flex items-center gap-3 hover:text-background hover:gap-10 hover:bg-white"
+          className="hidden group border border-white rounded-md p-4 bg-transparent text-white duration-150 md:flex items-center gap-3 hover:text-background hover:gap-10 hover:bg-white"
         >
           <p className="font-bold tracking-wide text-2xl uppercase">
             <span className="text-accent group-hover:text-background">//</span> Simulate
           </p>
           <ArrowRightIcon size={24} />
         </Link>
+
+        {/* disable simulate button for mobile screens and show message */}
+        <div className="md:hidden border border-white rounded-md p-4 bg-transparent text-white flex flex-col gap-3">
+          <div className="flex items-center gap-3 text-accent">
+            <InfoIcon size={16} />
+            <p className="text-sm">Designed for PC</p>
+          </div>
+          <p className="font-semibold tracking-wide text-sm">
+            Switch to a bigger screen to experience the full simulation environment.
+          </p>
+        </div>
 
         <iframe
           className=" aspect-video w-full mx-auto my-1"
