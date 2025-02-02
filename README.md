@@ -17,6 +17,8 @@ NBC simulates the idea of having your app deployed on the cloud with lifelike us
 
 It helps you prepare your architecture better by simulating events that will force you to use the best practices for scalability, high-availability, resiliency and security so that your architecture withstands any, well most, vulnerabilities.
 
+> Built during the Google Gemini Hackathon [April 2024]
+
 ## Tech Stack
 
 Built using,
